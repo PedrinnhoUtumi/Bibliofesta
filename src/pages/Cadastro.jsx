@@ -21,6 +21,7 @@ export function Cadastro() {
                     <div className="flex items-center mb-4 flex-col">
                         <label htmlFor="" className="mr-[95px] text-2xl">Confirmar Senha:</label>
                         <input type="password" className="bg-white m-2 rounded-3xl h-8 text-black"/>
+                    </div>
                         <button className="bg-[#FFAA00] h-10 mt-4 rounded-3xl w-36 "><strong>Cadastrar</strong></button>
                 </div>
             </div> 
