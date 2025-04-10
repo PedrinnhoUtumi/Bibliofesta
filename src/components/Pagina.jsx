@@ -6,7 +6,7 @@ export function Pagina(props) {
         <MenuTelaLogin/>
         <main
         className={`
-            flex items-center justify-center flex-1 p-4
+            flex flex-col items-center justify-center flex-1 p-4
         `}
       >
         {props.children}
