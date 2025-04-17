@@ -10,10 +10,10 @@ export function Cadastro() {
                 </aside>
                
                 <div className="flex-1 p-8 flex flex-col items-center justify-center w-xl">
-                    <header className="w-full flex justify-center items-start mb-8">
-                        <h1 className="text-5xl"><strong>BIBLIOFESTA</strong></h1>
-                    </header>
-                    <form className="flex flex-col items-center justify-center w-full">
+                    <form className="flex flex-col items-center justify-center rounded-2xl shadow-2xl p-10 w-96">
+                        <header className="w-full flex justify-center items-start mb-8">
+                            <h1 className="text-5xl"><strong>BIBLIOFESTA</strong></h1>
+                        </header>
                         <div className="flex flex-col items-center mb-4 w-64">
                             <label htmlFor="login" className="text-2xl self-start">Login:</label>
                             <input id="login" type="text" className="bg-white m-2 rounded-3xl h-8 text-black w-64" />

@@ -6,6 +6,9 @@ import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements } 
 import { Login } from './pages/Login';
 import { Cadastro } from './pages/Cadastro';
 import { Emprestimo } from './pages/Emprestimo';
+import { GerenciarDividas } from './pages/GerenciarDividas';
+import { CadastroLivro } from './pages/CadastroLivro';
+import { CadastroUsuario } from './pages/CadastroUsuario';
 
 
 const rotas = createBrowserRouter(
@@ -15,6 +18,9 @@ const rotas = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="/emprestimo" element={<Emprestimo />} />
+      <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
+      <Route path="/cadastroLivro" element={<CadastroLivro />} />
+      <Route path="/gerenciarDividas" element={<GerenciarDividas />} />
     </>
   )
 );
