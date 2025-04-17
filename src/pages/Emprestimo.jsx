@@ -1,11 +1,12 @@
-import { MenuTelaPrincipal } from "../components/MenuTelaPrincipal";
+import { Menu } from "../components/Menu";
 import { Pagina } from "../components/Pagina";
 
 export function Emprestimo() {
     return (
         <div>
-            <Pagina showMenu={false}>
-                <MenuTelaPrincipal/>
+            <Pagina>
+                <Menu/>
+                aiaiaiaiai assim vc mata o papai
             </Pagina>
         </div>
     )

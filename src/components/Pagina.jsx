@@ -1,11 +1,9 @@
-import { MenuTelaLogin } from "./MenuTelaLogin";
-
 export function Pagina(props) {
     return (
-      <div className={`flex flex-row flex-1 bg-[#023067] text-white`}>
+      <div className={`flex flex-row  bg-[#023067] text-white m-0`}>
         <main
         className={`
-            flex flex-col items-center justify-center flex-1 p-4
+            flex flex-col items-center justify-center m-0
         `}
       >
         {props.children}
