@@ -6,11 +6,11 @@ export function Login() {
     return (
         <Pagina>
             <div className="flex flex-row h-screen font-poppins"> 
-                {/* <aside className="bg-[#FFAA00] flex flex-col w-5xl h-screen items-center justify-center"> 
+                <aside className="bg-[#FFAA00] flex flex-col w-5xl h-screen items-center justify-center"> 
                     <img src={imagemLogin} alt='login' className='w-3xl'/> 
-                </aside>  */}
-                <Menu/>
-                <div className="flex-1 p-8 flex flex-col items-center justify-center w-xl">
+                </aside> 
+                {/* <Menu/> */}
+                <div className="flex-1 p-8 flex flex-col items-center justify-center w-xl border-8">
                     <form className="flex flex-col items-center justify-center rounded-2xl shadow-2xl p-10 w-96">
                         <header className="w-full flex justify-center items-start mb-8">
                             <h1 className="text-5xl"><strong>BIBLIOFESTA</strong></h1>
