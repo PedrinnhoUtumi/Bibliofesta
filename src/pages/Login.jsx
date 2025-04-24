@@ -6,10 +6,10 @@ export function Login() {
     return (
         <Pagina>
             <div className="flex flex-row h-screen font-poppins w-screen">
-                <aside className="bg-[#FFAA00] flex flex-col w-[70%] h-screen items-center justify-center">
-                    <img src={imagemLogin} alt='login' className='w-3xl' />
-                </aside>
-                {/* <Menu/> */}
+                {/* <aside className="bg-[#FFAA00] flex flex-col w-[70%] h-screen items-center justify-center"> */}
+                    {/* <img src={imagemLogin} alt='login' className='w-3xl' /> */}
+                {/* </aside> */}
+                <Menu/>
                 <div className="w-[30%] h-screen flex items-center justify-center p-8 ">
                     <form className="flex flex-col items-center justify-center rounded-2xl shadow-2xl p-10">
                         <header className="w-full flex justify-center items-start mb-8">
