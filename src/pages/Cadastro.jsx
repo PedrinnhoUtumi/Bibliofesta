@@ -4,7 +4,7 @@ import imagemLogin from '../assets/imagemLogin.png'
 export function Cadastro() {
     return (
         <Pagina>
-            <div className="flex flex-row h-screen font-poppins"> 
+            <div className="flex flex-row h-screen font-poppins w-screen"> 
                 <aside className="bg-[#FFAA00] flex flex-col w-5xl h-screen items-center justify-center">
                     <img src={imagemLogin} alt='login' className='w-3xl'/>
                 </aside>
