@@ -47,20 +47,20 @@ import { ArrowLeftRight, BookOpenText, CircleDollarSign, CircleDollarSignIcon, L
                  
           `}
         >
-          <NavLink to="emprestimo" className={getEstilo}>
+          <NavLink to="/emprestimo" className={getEstilo}>
             <ArrowLeftRight />
             Emprestimo
           </NavLink>
-          <NavLink to="cadastroUsuario" className={getEstilo}>
+          <NavLink to="/cadastroUsuario" className={getEstilo}>
             <NotebookText />
             Cadastrar Usuário
           </NavLink>
-          <NavLink to="cadastroLivro" className={getEstilo}>
+          <NavLink to="/cadastroLivro" className={getEstilo}>
             <BookOpenText />
             Cadastrar Livro
           </NavLink>
   
-          <NavLink to="gerenciarDividas" className={getEstilo}>
+          <NavLink to="/gerenciarDividas" className={getEstilo}>
             <CircleDollarSignIcon />
             Gerenciar Dívidas
           </NavLink>
