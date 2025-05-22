@@ -9,7 +9,7 @@ import { Emprestimo } from './pages/Emprestimo';
 import { GerenciarDividas } from './pages/GerenciarDividas';
 import { CadastroLivro } from './pages/CadastroLivro';
 import { CadastroUsuario } from './pages/CadastroUsuario';
-
+import { Emprestimo2 } from './pages/Emprestimo2';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +21,7 @@ const rotas = createBrowserRouter(
       <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
       <Route path="/cadastroLivro" element={<CadastroLivro />} />
       <Route path="/gerenciarDividas" element={<GerenciarDividas />} />
+      <Route path="/emprestimo2" element={<Emprestimo2/>}/>
     </>
   )
 );

@@ -56,7 +56,7 @@ export function CadastroUsuario() {
                                 <input type="text" className={estiloInput}/>
                             </span>
                         </form>
-                        <footer className="">
+                        <footer className="mt-[-20px]">
                             <button className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer " type="submit"><strong>Cadastrar</strong></button>
                         </footer>
                     </div>

@@ -47,7 +47,9 @@ export function CadastroLivro() {
                                 <input type="text" className={estiloInput}/>
                             </div>
                         </form>
-                        <button className="bg-[#FFAA00] h-10 mt-4 rounded-3xl w-36 cursor-pointer self-centerz" type="submit"><strong>Cadastrar</strong></button>
+                        <div className="mt-[-20px]">
+                            <button className="bg-[#FFAA00] h-10 mt-4 rounded-3xl w-36 cursor-pointer self-centerz" type="submit"><strong>Cadastrar</strong></button>
+                        </div>
                     </div>
                 </div>
             </Pagina>

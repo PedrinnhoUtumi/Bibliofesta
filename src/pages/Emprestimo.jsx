@@ -2,6 +2,7 @@ import { Menu } from "../components/Menu";
 import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { Search, StepBack, StepForward } from "lucide-react";
+import { NavLink } from "react-router-dom";
 export function Emprestimo() {
     return (
         <div className="w-screen h-screen">
@@ -15,13 +16,18 @@ export function Emprestimo() {
                     </span>
                     <div className="h-80 w-full flex self-end mb-40 rounded-2xl bg-[#11a3b2]/45 items-center justify-around">
                         <StepBack size="50px"/>
+                        <NavLink to="/Emprestimo2" >
                         <img src={imagemLogin} alt="" className="w-72"/>
+                        </NavLink>
+                        <NavLink to="" >
                         <img src={imagemLogin} alt="" className="w-72"/>
+                        </NavLink>
+                        <NavLink to="" >
                         <img src={imagemLogin} alt="" className="w-72"/>
+                        </NavLink>
                         <StepForward size="50px"/>
                      </div>
                    </div>
-
                 </div>
             </Pagina>
         </div>
