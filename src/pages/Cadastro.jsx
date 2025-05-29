@@ -44,7 +44,7 @@ export function Cadastro() {
           };
           console.log(novoUsuario)
     
-          const response = await fetch(`https://127.0.0.1/cadastrar`, {
+          const response = await fetch(`http://127.0.0.1/cadastrar`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
