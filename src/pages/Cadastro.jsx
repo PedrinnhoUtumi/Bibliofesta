@@ -10,23 +10,7 @@ export function Cadastro() {
     const [usuario, setUsuario] = useState([]);
     const [senha, setSenha] = useState("");
 
-    const verificarLogin = async () => {
-        const usuarioEncontrado = usuario.find((user) => user.email === email);
-        if (usuarioEncontrado) {
-          console.log("Usuário encontrado:", usuarioEncontrado);
-          
-          const isCorrect = await bcrypt.compare(senha, usuarioEncontrado.senha);
-      
-          if (isCorrect) {  
-            console.log("tudo correto");
-            
-          } else {
-            alert("Senha incorreta!");
-          }
-        } else {
-          alert("Usuário ou senha inválidos!");
-        }
-      };
+
 
     async function criarUsuario(e) {
         e.preventDefault();
