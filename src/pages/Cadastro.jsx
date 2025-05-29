@@ -1,6 +1,7 @@
 import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { useState } from "react";
+import bcrypt from "bcrypt"
 
 
 
@@ -17,7 +18,8 @@ export function Cadastro() {
           const isCorrect = await bcrypt.compare(senha, usuarioEncontrado.senha);
       
           if (isCorrect) {  
-            navigate("/Emprestimo", { replace: true });
+            console.log("tudo correto");
+            
           } else {
             alert("Senha incorreta!");
           }
