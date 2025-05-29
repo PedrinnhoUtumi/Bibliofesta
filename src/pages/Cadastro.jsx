@@ -1,7 +1,7 @@
 import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { useState } from "react";
-import bcrypt from "bcrypt"
+import bcrypt from 'bcryptjs'
 
 
 
