@@ -6,10 +6,8 @@ export function CadastroLivro() {
     const estiloInput = `bg-white rounded-3xl text-black w-52`
 
     const [novoLivro, setNovoLivro] = useState({ isbn: "", titulo: "", editora: "", edicao: "", qntEstoque: "", resumo: ""});
-    const [novaCategoria, setNovaCategoria] = useState({
-        
-        nomeCategoria: ""})
-    const [novoAutor, setNovoAutor] = useState({nomeAutor: ""})
+    const [novaCategoria, setNovaCategoria] = useState({ nomeCategoria: "" })
+    const [novoAutor, setNovoAutor] = useState({ nomeAutor: "" })
 
     return (
         <div>
