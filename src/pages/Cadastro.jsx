@@ -7,7 +7,6 @@ import bcrypt from 'bcryptjs'
 
 export function Cadastro() {
     const [novoUsuario, setNovoUsuario] = useState({ nome: "", senha: ""});
-    const [usuario, setUsuario] = useState([]);
     const [senha, setSenha] = useState("");
 
 
@@ -50,6 +49,14 @@ export function Cadastro() {
           console.error(error)
         }
       }
+
+    function verificaSenha(senha) {
+        if (senha === novoUsuario.senha) {
+            return true
+        }
+        return false
+    }
+
     return (
         <Pagina>
             <div className="flex flex-row h-screen font-poppins w-screen"> 
@@ -68,11 +75,14 @@ export function Cadastro() {
                         </div>
                         <div className="flex flex-col items-center mb-4 w-64">
                             <label htmlFor="senha" className="text-2xl self-start">Senha:</label>
-                            <input id="senha" type="password" className="bg-white m-2 rounded-3xl h-8 text-black w-64" />
+                            <input id="senha" type="password" className="bg-white m-2 rounded-3xl h-8 text-black w-64" value={novoUsuario.senha} onChange={(e) => setNovoUsuario({ ...novoUsuario, senha: e.target.value })} />
                         </div>
                         <div className="flex flex-col items-center mb-4 w-64">
                             <label htmlFor="senha" className="text-2xl self-start">Confirmar Senha:</label>
-                            <input id="senha" type="password" value={novoUsuario.senha} onChange={(e) => setNovoUsuario({ ...novoUsuario, senha: e.target.value })} className="bg-white m-2 rounded-3xl h-8 text-black w-64" />
+                            <input id="senha" type="password" value={senha} onChange={(e) => {
+                                setSenha(e.target.value)
+                                verificaSenha(senha)
+                            }} className="bg-white m-2 rounded-3xl h-8 text-black w-64" />
                         </div>
                         <button className="bg-[#FFAA00] h-10 mt-4 rounded-3xl w-36 cursor-pointer" onClick={criarUsuario} type="submit"><strong>Cadastrar</strong></button>
                     </form>

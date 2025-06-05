@@ -3,23 +3,23 @@ import imagemLogin from '../assets/imagemLogin.png'
 import { Link, useNavigate } from "react-router-dom"
 import { Menu } from "../components/Menu";
 export function Login() {
-        const verificarLogin = async () => {
-            const usuarioEncontrado = usuario.find((user) => user.email === email);
-            if (usuarioEncontrado) {
-              console.log("Usuário encontrado:", usuarioEncontrado);
-              
-              const isCorrect = await bcrypt.compare(senha, usuarioEncontrado.senha);
-          
-              if (isCorrect) {  
-                console.log("tudo correto");
-                
-              } else {
-                alert("Senha incorreta!");
-              }
-            } else {
-              alert("Usuário ou senha inválidos!");
-            }
-          };
+    // const verificarLogin = async () => {
+    //     const usuarioEncontrado = usuario.find((user) => user.email === email);
+    //     if (usuarioEncontrado) {
+    //         console.log("Usuário encontrado:", usuarioEncontrado);
+            
+    //         const senhaCorreta = await bcrypt.compare(senha, usuarioEncontrado.senha);
+        
+    //         if (senhaCorreta) {  
+    //         console.log("tudo correto");
+            
+    //         } else {
+    //         alert("Senha incorreta!");
+    //         }
+    //     } else {
+    //         alert("Usuário ou senha inválidos!");
+    //     }
+    //     };
     return (
         <Pagina>
             <div className="flex flex-row h-screen font-poppins w-screen">
