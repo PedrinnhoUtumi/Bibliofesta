@@ -40,7 +40,7 @@ export function Cadastro() {
           }
     
     
-          const dados = await response.json()
+          const dados = await recadastrarUsuariosponse.json()
           console.log(dados)
     
     
