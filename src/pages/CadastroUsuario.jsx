@@ -72,14 +72,14 @@ export function CadastroUsuario() {
                             </span>
                             
                             <span>
-                                {/* <label htmlFor="" className={estiloLabel}>Curso:</label>
+                                <label htmlFor="" className={estiloLabel}>Curso:</label>
                                 <br />
-                                <input type="text" value={novoUsuario.codigoCurso} onChange={(e) => setNovoUsuario({ ...novoUsuario, codigoCurso: e.target.value })} className={estiloInput}/> */}
+                                <input type="text" value={novoUsuario.codigoCurso} onChange={(e) => setNovoUsuario({ ...novoUsuario, codigoCurso: e.target.value })} className={estiloInput}/>
 
-                                <select selected id="codigoCurso" name="curso" >
+                                {/* <select selected id="codigoCurso" name="curso" >
                                     <option value="informatica">TI24E</option>
                                     <option value="matematica">MAT24E</option>
-                                </select>
+                                </select> */}
                                 {/* <Link to='/'>Curso não cadastrado ainda? Cadastre agora</Link> */}
                             </span>
                             
@@ -96,7 +96,7 @@ export function CadastroUsuario() {
                             </span>
                         </form>
                         <footer className="mt-[-20px]">
-                            <button className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer " type="submit" onClick={console.log(novoUsuario)}><strong>Cadastrar</strong></button>
+                            <button className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer " type="submit" onClick={criarUsuario}><strong>Cadastrar</strong></button>
                         </footer>
                     </div>
                 </div>

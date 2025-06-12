@@ -10,6 +10,8 @@ import { GerenciarDividas } from './pages/GerenciarDividas';
 import { CadastroLivro } from './pages/CadastroLivro';
 import { CadastroUsuario } from './pages/CadastroUsuario';
 import { Emprestimo2 } from './pages/Emprestimo2';
+import { Usuario } from './pages/Usuario';
+import { DadosProvider } from './context/DadosContext';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +20,7 @@ const rotas = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
       <Route path="/emprestimo" element={<Emprestimo />} />
+      <Route path='/usuario' element={<Usuario/>}/> 
       <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
       <Route path="/cadastroLivro" element={<CadastroLivro />} />
       <Route path="/gerenciarDividas" element={<GerenciarDividas />} />
@@ -28,6 +31,8 @@ const rotas = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={rotas} />
+    <DadosProvider>
+      <RouterProvider router={rotas} />
+    </DadosProvider>
   </StrictMode>
 );

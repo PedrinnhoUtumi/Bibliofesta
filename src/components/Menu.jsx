@@ -51,7 +51,7 @@ import { ArrowLeftRight, BookOpenText, CircleDollarSign, CircleDollarSignIcon, L
             <ArrowLeftRight />
             Emprestimo
           </NavLink>
-          <NavLink to="/cadastroUsuario" className={getEstilo}>
+          <NavLink to="/usuario" className={getEstilo}>
             <NotebookText />
             Cadastrar Usuário
           </NavLink>
