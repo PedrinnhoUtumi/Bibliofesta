@@ -23,6 +23,24 @@ export function Usuario() {
         navigate("/CadastroUsuario")
     }
 
+    async function AtualizarUsuario(dados) {
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/api/usuario`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dados),
+            })
+
+            if (!response.ok) {
+                console.log(response)
+            }
+
+        } catch (error) {
+            console.error(error)
+        }
+      }
 
     const selectBD = cliente.filter(cliente => {
         if (cliente.nome !== null) {
@@ -71,7 +89,7 @@ export function Usuario() {
                                     {dado.idprofissao}
                                     <span className="flex flex-row">
                                         <Trash2 className="cursor-pointer" onClick={() => deleteBD(dado.idcliente)} />
-                                        <NotebookPen className="cursor-pointer" onClick={() => atualizeBD(dado.idcliente)} />
+                                        <NotebookPen className="cursor-pointer" onClick={() => AtualizarUsuario(dados)} />
                                     </span>
                                 </div>
                             </div>
