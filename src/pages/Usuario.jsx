@@ -54,12 +54,22 @@ export function Usuario() {
 
     const deleteBD = async (idcliente) => {
         try {
-            const resposta = await fetch(`http://127.0.0.1:3000/api/usuarioDelete/${idcliente}`, {
-                method: "DELETE"
+            const resposta = await fetch(`http://127.0.0.1:3000/api/usuario/${idcliente}`, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             })
             if (!resposta.ok) {
-                console.error("asdsadsa");
+                console.error(resposta);
+                const texto = await resposta.text()
+                console.log(texto);
+            } else {
+                setDeletados((prevDeletados) => [...prevDeletados, idcliente])
+                adicionarDados(dados.filter(dado => dado.idcliente !== idcliente))
+                console.log(`Usuário com ID ${idcliente} deletado com sucesso`)
             }
+
         } catch (error) {
             console.error(error);
                         
@@ -84,9 +94,7 @@ export function Usuario() {
                         {dados.map((dado) => (
                             <div key={dado.ra} className="w-1/2">
                                 <div className="h-15 w-full flex justify-evenly rounded-2xl mt-5 bg-[#11a3b2]/45 items-center">
-                                    {dado.nomecliente},
-                                    {dado.ra},
-                                    {dado.idprofissao}
+                                    {dado.nomecliente}, {dado.ra}, {dado.idprofissao}
                                     <span className="flex flex-row">
                                         <Trash2 className="cursor-pointer" onClick={() => deleteBD(dado.idcliente)} />
                                         <NotebookPen className="cursor-pointer" onClick={() => AtualizarUsuario(dados)} />
