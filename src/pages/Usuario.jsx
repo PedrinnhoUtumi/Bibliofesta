@@ -102,6 +102,7 @@ export function Usuario() {
                                 </div>
                             </div>
                         ))}
+                        
 
                         <footer className="mt-[-20px]">
                             <button className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer " type="submit" onClick={cadastrarUsuario}><strong>Cadastrar</strong></button>

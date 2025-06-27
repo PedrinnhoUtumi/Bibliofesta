@@ -7,14 +7,11 @@ import { Link } from "react-router-dom";
 export function CadastroLivro() {
     const { dados, adicionarDados } = useContext(DadosContext);
 
-    const [isVisivel, setIsVisivel] = useState(false)
-    function cadastroCurso(e) {
-            (e).preventDefault()
-            setIsVisivel(!isVisivel);
-    }
+
 
     const estiloInput = `bg-white rounded-3xl text-black w-72 h-7`
     const estiloLabel = `text-2xl`
+    const [curso, setCurso] = useState({codigoCurso: "", nomeCurso: ""})
     const [novoLivro, setNovoLivro] = useState({ ISBN: "", categoria: "", editora: "", titulo: "", autor: "", edicao: "", resumo: ""});
     async function criarUsuario(e) {
         e.preventDefault();
@@ -25,7 +22,7 @@ export function CadastroLivro() {
           }
 
     
-          const response = await fetch(`http://127.0.0.1:3000/cadastroUsuario`, {
+          const response = await fetch(`http://127.0.0.1:3000/cadastroLivro`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
@@ -48,13 +45,14 @@ export function CadastroLivro() {
         }
       }
 
+
     return (
         <div>
             <Pagina>
                 <div className="flex flex-row h-screen font-poppins w-screen"> 
                     <Menu/>
                     <div className=" grid place-items-center  h-full w-full ">
-                        <form action="" className="grid grid-cols-2 gap-6 p-10 h-100">
+                        <form action="POST" className="grid grid-cols-2 gap-6 p-10 h-100">
                             <span>
                                 <label htmlFor="" className={estiloLabel}>Categoria:</label>
                                 <br />
@@ -70,7 +68,7 @@ export function CadastroLivro() {
                             <span>
                                 <label htmlFor="" className={estiloLabel}>Editora:</label>
                                 <br />
-                                <input type="number" value={novoLivro.editora} onChange={(e) => setNovoLivro({ ...novoLivro, editora: e.target.value })} className={estiloInput}/>
+                                <input type="text" value={novoLivro.editora} onChange={(e) => setNovoLivro({ ...novoLivro, editora: e.target.value })} className={estiloInput}/>
                             </span>
                                 
                             <span>
@@ -84,12 +82,6 @@ export function CadastroLivro() {
                                 <label htmlFor="" className={estiloLabel}>Resumo:</label>
                                 <br />
                                 <input type="text" value={novoLivro.resumo} onChange={(e) => setNovoLivro({ ...novoLivro, resumo: e.target.value })} className={estiloInput}/>
-
-                                {/* <select selected id="resumo" name="curso" >
-                                    <option value="informatica">TI24E</option>
-                                    <option value="matematica">MAT24E</option>
-                                </select> */}
-                                {/* <Link to='/'>Curso não cadastcatdadosegoriado ainda? Cadastre agocategoria</Link> */}
                             </span>
                             
                             <span>
@@ -98,35 +90,9 @@ export function CadastroLivro() {
                                 <input type="edicao" value={novoLivro.edicao} onChange={(e) => setNovoLivro({ ...novoLivro, edicao: e.target.value })} className={estiloInput}/>
                             </span>
                                 
-                            <span>
-                                <button onClick={cadastroCurso}>
-                                    {isVisivel ? 'Cadastrar' : 'Selecionar'}
-                                </button>
-                                { isVisivel && (
-                                    <div>
-                                        <label htmlFor="">Código Curso</label>
-                                        <input type="text" />
-                                        <br />
-                                        <label htmlFor="">Nome Curso</label>
-                                        <input type="text" />
-                                    </div>
-                                )}
-                                <br />
-                                <label htmlFor="">Cursos</label>
-                                <select name="" id="">
-                                    {dados.map((dado) => (
-                                        <div key={dado.codigocurso} className="w-1/2">
-                                            <div className="h-15 w-20 flex">
-                                                <option value={dado.nomecurso}></option>
-                                                <option value="saerarar">SARARRARA</option>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </select>
-                            </span>
                         </form>
                         <footer className="mt-[-20px]">
-                            <button className="bg-[#11a3b2] h-12 rounded-3xl w-55 cursor-pointer " type="submit" onClick={criarUsuario}><strong>Cadastcategoriar</strong></button>
+                            <button className="bg-[#11a3b2] h-12 rounded-3xl w-55 cursor-pointer" type="submit" onClick={criarUsuario}><strong>Cadastrar</strong></button>
                         </footer>
                     </div>
                 </div>

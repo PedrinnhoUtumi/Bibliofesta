@@ -17,7 +17,7 @@ export function DadosProvider({ children }) {
 
   useEffect(() => {
     const fetchAPI = async () => {
-      try {
+      try { 
         const response = await fetch("http://127.0.0.1:3000/api/usuario");
         if (!response.ok) {
           throw new Error("Erro ao buscar os dados do servidor");

@@ -2,8 +2,55 @@ import { Menu } from "../components/Menu";
 import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { Search, StepBack, StepForward } from "lucide-react";
+import { useContext, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 export function Emprestimo() {
+
+    const [livros, setLivros] = useState([])
+
+    const [pagina, setPagina] = useState(0);
+    const livrosPagina = 3;
+
+    const inicio = pagina * livrosPagina;
+    const fim = inicio + livrosPagina;
+
+    function proximaPagina() {
+        if (fim < livros.length) {
+          setPagina(pagina + 1);
+        }
+      }
+      
+      function paginaAnterior() {
+        if (pagina > 0) {
+          setPagina(pagina - 1);
+        }
+      }
+
+
+
+
+
+    useEffect( function (){
+        async function BuscarLivros(){
+            try {
+                const response = await fetch(`http://127.0.0.1:3000/cadastroLivro`)
+
+                if (!response.ok) {
+                    throw new Error(`Erro ao buscar livro: ${response.statusText}`)
+                }
+
+                const data = await response.json()
+                setLivros(data)
+
+
+            } catch (erro){
+                console.error("erro ao" , erro)
+            }
+        }
+        BuscarLivros()
+    }, [])
+
+
     return (
         <div className="w-screen h-screen">
             <Pagina>
@@ -15,18 +62,14 @@ export function Emprestimo() {
                         <div className="border-4 bg-white rounded-r-2xl"> <Search className="text-black "/> </div>
                     </span>
                     <div className="h-80 w-full flex self-end mb-40 rounded-2xl bg-[#11a3b2]/45 items-center justify-around">
-                        <StepBack size="50px"/>
-                        <NavLink to="/Emprestimo2" >
-                        <img src={imagemLogin} alt="" className="w-72"/>
-                        </NavLink>
-                        <NavLink to="" >
-                        <img src={imagemLogin} alt="" className="w-72"/>
-                        </NavLink>
-                        <NavLink to="" >
-                        <img src={imagemLogin} alt="" className="w-72"/>
-                        </NavLink>
-                        <StepForward size="50px"/>
-                     </div>
+                        <StepBack size="50px" onClick={paginaAnterior}/>
+                        {livros.slice(0, 3).map((livro) => (
+                                <NavLink key={livro.id} to={`/emprestimo2/${livro.id}`}>
+                                    <img src={livro.foto} alt={livro.titulo} className="w-72" />
+                                </NavLink>
+                            ))}
+                        <StepForward size="50px" onClick={proximaPagina}/>
+                     </div> 
                    </div>
                 </div>
             </Pagina>

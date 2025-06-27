@@ -50,6 +50,8 @@ export function Cadastro() {
         }
       }
 
+    
+    
     function verificaSenha(senha) {
         if (senha === novoUsuario.senha) {
             return true
