@@ -89,6 +89,11 @@ export function CadastroLivro() {
                                 <br />
                                 <input type="edicao" value={novoLivro.edicao} onChange={(e) => setNovoLivro({ ...novoLivro, edicao: e.target.value })} className={estiloInput}/>
                             </span>
+                            <span>
+                                <label htmlFor="" className={estiloLabel}>Foto da capa 📷</label>
+                                <br />
+                                <input type="file" name="foto" className="inline-block bg-white text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300"/>
+                            </span>
                                 
                         </form>
                         <footer className="mt-[-20px]">

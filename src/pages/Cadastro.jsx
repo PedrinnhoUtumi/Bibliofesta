@@ -19,20 +19,20 @@ export function Cadastro() {
             return
           }
           
-          const salt = await bcrypt.genSalt(10);
-          const hash = await bcrypt.hash(novoUsuario.senha, salt);
-          const usuarioParaEnviar = {
-            ...novoUsuario,
-            senha: hash,
-          };
-          console.log(novoUsuario)
+        //   const salt = await bcrypt.genSalt(10);
+        //   const hash = await bcrypt.hash(novoUsuario.senha, salt);
+        //   const usuarioParaEnviar = {
+        //     ...novoUsuario,
+        //     senha: hash,
+        //   };
+        //   console.log(novoUsuario)
     
           const response = await fetch(`http://127.0.0.1:3000/cadastrar`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
               },
-              body: JSON.stringify(usuarioParaEnviar),
+              body: JSON.stringify(novoUsuario),
           })
     
           if (!response.ok) {

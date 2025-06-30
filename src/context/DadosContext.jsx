@@ -3,17 +3,24 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const DadosContext = createContext();
 
 export function DadosProvider({ children }) {
-  const [dados, setDados] = useState([])
-  function adicionarDados(novosDados) {
+  const [dados, setDados] = useState({})
+  function adicionarDados(novosDadosPorTabela) {
     setDados((prev) => {
-      const existentes = new Set(prev.map((item) => JSON.stringify(item)));
-      const novosUnicos = novosDados.filter(
-        (item) => !existentes.has(JSON.stringify(item))
-      );
-      const atualizados = [...prev, ...novosUnicos];
-      return atualizados;
+      const novoEstado = { ...prev };
+      for (const [tabela, registros] of Object.entries(novosDadosPorTabela)) {
+        if (!Array.isArray(registros)) continue;
+        const existentes = new Set(
+          (novoEstado[tabela] || []).map((item) => JSON.stringify(item))
+        );
+        const novosUnicos = registros.filter(
+          (item) => !existentes.has(JSON.stringify(item))
+        );
+        novoEstado[tabela] = [...(novoEstado[tabela] || []), ...novosUnicos];
+      }
+      return novoEstado;
     });
   }
+  
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -26,6 +33,7 @@ export function DadosProvider({ children }) {
 
         const json = await response.json();
         console.log(json);
+        adicionarDados(json.message);
 
         // Object.entries(tabelas).forEach(([nomeTabela, conteudo]) => {
         //   const columns = conteudo?.data?.columns;
@@ -41,12 +49,8 @@ export function DadosProvider({ children }) {
 
 
         // });
-        if (Array.isArray(json.message)) {
-          adicionarDados(json.message);
-        } else {
-          console.error("Formato inesperado da resposta:", json);
-        }
-
+        // const todasAsTabelas = Object.values(json.message).flat(); // Junta todos os arrays
+        // adicionarDados(todasAsTabelas);
 
 
       } catch (err) {
