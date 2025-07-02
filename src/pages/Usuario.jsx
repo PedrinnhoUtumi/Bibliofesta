@@ -91,7 +91,7 @@ export function Usuario() {
                         </span>
 
 
-                        {dados.map((dado) => (
+                        {dados.cliente.map((dado) => (
                             <div key={dado.ra} className="w-1/2">
                                 <div className="h-15 w-full flex justify-evenly rounded-2xl mt-5 bg-[#11a3b2]/45 items-center">
                                     {dado.nomecliente}, {dado.ra}, {dado.idprofissao}

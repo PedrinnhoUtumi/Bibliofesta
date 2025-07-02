@@ -6,21 +6,18 @@ import { Link } from "react-router-dom";
 
 export function CadastroLivro() {
     const { dados, adicionarDados } = useContext(DadosContext);
-
-
-
     const estiloInput = `bg-white rounded-3xl text-black w-72 h-7`
     const estiloLabel = `text-2xl`
-    const [curso, setCurso] = useState({codigoCurso: "", nomeCurso: ""})
-    const [novoLivro, setNovoLivro] = useState({ ISBN: "", categoria: "", editora: "", titulo: "", autor: "", edicao: "", resumo: ""});
-    async function criarUsuario(e) {
+    const [novoLivro, setNovoLivro] = useState({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: ""});
+    async function criarLivro(e) {
         e.preventDefault();
         try {
-          if (!novoLivro.ISBN || !novoLivro.categoria || !novoLivro.editora || !novoLivro.titulo || !novoLivro.autor || !novoLivro.edicao || !novoLivro.resumo) {
+          if (!novoLivro.ISBN || !novoLivro.idCategoria || !novoLivro.editora || !novoLivro.titulo || !novoLivro.idAutor || !novoLivro.edicao || !novoLivro.resumo) {
             alert("Preencha todos os campos!")
             return
           }
-
+          console.log(novoLivro.qtdEstoque);
+          
     
           const response = await fetch(`http://127.0.0.1:3000/cadastroLivro`, {
               method: "POST",
@@ -39,7 +36,7 @@ export function CadastroLivro() {
           console.log(dados)
     
     
-          setNovoLivro({ ISBN: "", categoria: "", editora: "", titulo: "", autor: "", edicao: "", resumo: ""})
+          setNovoLivro({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: ""})
           } catch (error) {
           console.error(error)
         }
@@ -56,7 +53,7 @@ export function CadastroLivro() {
                             <span>
                                 <label htmlFor="" className={estiloLabel}>Categoria:</label>
                                 <br />
-                                <input type="text" value={novoLivro.categoria} onChange={(e) => setNovoLivro({ ...novoLivro, categoria: e.target.value })} className={estiloInput}/>
+                                <input type="text" value={novoLivro.idCategoria} onChange={(e) => setNovoLivro({ ...novoLivro, idCategoria: e.target.value })} className={estiloInput}/>
                             </span>
                         
                             <span>
@@ -92,12 +89,22 @@ export function CadastroLivro() {
                             <span>
                                 <label htmlFor="" className={estiloLabel}>Foto da capa 📷</label>
                                 <br />
-                                <input type="file" name="foto" className="inline-block bg-white text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300"/>
+                                <input type="file" name="foto"  onChange={(e) => setNovoLivro({...novoLivro, foto: e.target.files[0]})} className="inline-block bg-white text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300"/>
+                            </span>
+                            <span>
+                                <label htmlFor="" className={estiloLabel}>idAutor</label>
+                                <br />
+                                <input type="text" value={novoLivro.idAutor} onChange={(e) => setNovoLivro({...novoLivro, idAutor: e.target.value})} name="idAutor" className={estiloInput}/>
+                            </span>
+                            <span>
+                                <label htmlFor="" className={estiloLabel}>Quantidade de estoque</label>
+                                <br />
+                                <input type="number" value={novoLivro.qtdEstoque} onChange={(e) => setNovoLivro({...novoLivro, qtdEstoque: e.target.value})} name="qtdEstoque" className={estiloInput}/>
                             </span>
                                 
                         </form>
                         <footer className="mt-[-20px]">
-                            <button className="bg-[#11a3b2] h-12 rounded-3xl w-55 cursor-pointer" type="submit" onClick={criarUsuario}><strong>Cadastrar</strong></button>
+                            <button className="bg-[#11a3b2] h-12 rounded-3xl w-55 cursor-pointer" type="submit" onClick={criarLivro}><strong>Cadastrar</strong></button>
                         </footer>
                     </div>
                 </div>

@@ -10,14 +10,19 @@ export function Login() {
     const [login, setLogin] = useState('')
     const [senha, setSenha] = useState('')
     const {dados, adicionarDados} = useContext(DadosContext)
+    const navigate = useNavigate()
     const verificarLogin = async () => {
         
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(senha, salt);
         console.log(hash)
         for (let i = 0; i < dados.bibliotecario.length; i++){
+            const senhaCorreta = bcrypt.compare(hash, dados.bibliotecario[i].senha)
             
-            if (login === dados.bibliotecario[i].nomebibliotecario && senha === dados.bibliotecario[i].senha){
+            if (login === dados.bibliotecario[i].nomebibliotecario && senhaCorreta){
+                console.log("arrasou");
+                navigate("/emprestimo")
+                
             } else {
                 console.log("Tentaiva", i);
                 
@@ -32,12 +37,12 @@ export function Login() {
     };
     return (
         <Pagina>
-            <div className="flex flex-row h-screen font-poppins w-screen">
-                <aside className="bg-[#FFAA00] flex flex-col w-[70%] h-screen items-center justify-center">
+            <div className="flex flex-row min-h-screen font-poppins w-screen">
+                <aside className="hidden sm:flex flex-col w-[70%] h-screen bg-[#FFAA00] min-w-[350px] items-center justify-center">
                     <img src={imagemLogin} alt='login' className='w-3xl' />
                 </aside>
                 {/* <Menu/> */}
-                <div className="w-[30%] h-screen flex items-center justify-center p-8 ">
+                <div className="h-screen flex-1 flex items-center justify-center max-w-full max-h-full p-8 ">
                     <div className="flex flex-col items-center justify-center rounded-2xl shadow-2xl p-10">
                         <header className="w-full flex justify-center items-start mb-8">
                             <h1 className="text-5xl"><strong>BIBLIOFESTA</strong></h1>

@@ -158,9 +158,9 @@ export function CadastroUsuario() {
                                 <br />
                                 <label htmlFor="">Cursos</label>
                                 <select name="" id="">
-                                    {dados.map((dado) => (
-                                        <option key={dado.curso.codigo} value={dado.curso.nomecurso}>
-                                            {dado.curso.nomecurso}
+                                    {dados.curso.map((dado) => (
+                                        <option key={dado.codigo} value={dado.nomecurso}>
+                                            {dado.nomecurso}
                                         </option>
                                     ))}
                                 </select>

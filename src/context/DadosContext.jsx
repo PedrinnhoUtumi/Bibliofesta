@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const DadosContext = createContext();
 
 export function DadosProvider({ children }) {
-  const [dados, setDados] = useState({})
+  const [dados, setDados] = useState([])
   function adicionarDados(novosDadosPorTabela) {
     setDados((prev) => {
       const novoEstado = { ...prev };
