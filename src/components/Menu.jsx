@@ -9,7 +9,7 @@
 //   } from "@tabler/icons-react";
 import { NavLink } from "react-router-dom";
 import imgMenu from "../assets/menu.png";
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import {
   ArrowLeftRight,
   BookOpenText,
@@ -18,11 +18,20 @@ import {
   LogOutIcon,
   NotebookText,
 } from "lucide-react";
+
+
 export function Menu() {
-  const [menu, setMenu] = useState(false);
+  const [menu, setMenu] = useState(true);
+
+  useEffect(() => {
+    const isDesktop = window.innerWidth >= 640;
+    setMenu(isDesktop);
+
+  }, []); //fazer o menu aparecer automaticamene quando o usuario aumentar a tela
 
   function verificaMenu() {
     setMenu(!menu);
+    console.log(menu)
   }
 
   const getEstilo = (props) => {
@@ -41,13 +50,13 @@ export function Menu() {
 
   return (
     <div>
-      <aside className="flex p-10 sm:hidden" onClick={verificaMenu}>
+      {!menu &&(
+      <button className="flex p-10 sm:hidden" onClick={verificaMenu}>
         &equiv;
-      </aside>
-
+      </button>)}
 
       {menu &&(
-        <aside className="hidden sm:flex flex-col gap-5 bg-[#FFAA00] min-w-72">
+        <aside className="flex flex-col gap-5 bg-[#FFAA00] min-w-72 h-full">
           <header
             className={`
                 flex justify-center items-center gap-2
@@ -68,6 +77,7 @@ export function Menu() {
                     
               `}
           >
+
             <NavLink to="/emprestimo" className={getEstilo}>
               <ArrowLeftRight />
               Emprestimo
@@ -86,7 +96,7 @@ export function Menu() {
               Gerenciar Dívidas
             </NavLink>
           </nav>
-  
+          <button className={`flex ml-5 sm:hidden ${getEstilo}`} onClick={verificaMenu}>Fechar Menu</button>
           <footer className="absolute bottom-0 p-2 w-72 flex justify-center cursor-pointer text-black border-1">
             <LogOutIcon />
             <span className="ml-5"> Log out </span>

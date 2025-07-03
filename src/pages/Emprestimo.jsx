@@ -4,8 +4,9 @@ import imagemLogin from '../assets/imagemLogin.png'
 import { Search, StepBack, StepForward } from "lucide-react";
 import { useContext, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { DadosContext } from "../context/DadosContext";
 export function Emprestimo() {
-
+    const {dados} = useContext(DadosContext)
     const [livros, setLivros] = useState([])
 
     const [pagina, setPagina] = useState(0);
@@ -20,35 +21,46 @@ export function Emprestimo() {
         }
       }
       
-      function paginaAnterior() {
-        if (pagina > 0) {
-          setPagina(pagina - 1);
-        }
-      }
+    function paginaAnterior() {
+    if (pagina > 0) {
+        setPagina(pagina - 1);
+    }
+    }
 
-
-
+    function buscaImagens() {
+        if (!dados.livro || dados.livro.length === 0) return;
+    
+        const livrosFormatados = dados.livro.map(livro => ({
+            ...livro,
+            imagemcapa: `http://localhost:3000/${livro.imagemcapa}`
+        }));
+    
+        setLivros(livrosFormatados);
+    }
 
 
     useEffect( function (){
-        async function BuscarLivros(){
-            try {
-                const response = await fetch(`http://127.0.0.1:3000/cadastroLivro`)
+        // async function BuscarLivros(){
+        //     try {
+        //         const response = await fetch(`http://127.0.0.1:3000/cadastroLivro`)
 
-                if (!response.ok) {
-                    throw new Error(`Erro ao buscar livro: ${response.statusText}`)
-                }
+        //         if (!response.ok) {
+        //             throw new Error(`Erro ao buscar livro: ${response.statusText}`)
+        //         }
 
-                const data = await response.json()
-                setLivros(data)
+        //         const data = await response.json()
+        //         setLivros(data)
 
 
-            } catch (erro){
-                console.error("erro ao" , erro)
-            }
-        }
-        BuscarLivros()
-    }, [])
+        //     } catch (erro){
+        //         console.error("erro ao" , erro)
+        //     }
+        // }
+        // BuscarLivros()
+        buscaImagens()
+        console.log("livros",livros);
+        
+    }, [dados])
 
 
     return (
@@ -65,7 +77,7 @@ export function Emprestimo() {
                         <StepBack size="50px" onClick={paginaAnterior}/>
                         {livros.slice(0, 3).map((livro) => (
                                 <NavLink key={livro.id} to={`/emprestimo2/${livro.id}`}>
-                                    <img src={livro.foto} alt={livro.titulo} className="w-72" />
+                                    <img src={livro.imagemcapa} alt={livro.titulo} className="w-72" />
                                 </NavLink>
                             ))}
                         <StepForward size="50px" onClick={proximaPagina}/>
