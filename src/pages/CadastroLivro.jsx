@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export function CadastroLivro() {
     const { dados, adicionarDados } = useContext(DadosContext);
-    const estiloInput = `bg-white rounded-3xl text-black w-72 h-7`
+    const estiloInput = `bg-white rounded-3xl text-black w-full h-full`
     const estiloLabel = `text-2xl`
     const [novoLivro, setNovoLivro] = useState({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: ""});
     async function criarLivro(e) {
@@ -50,10 +50,10 @@ export function CadastroLivro() {
     return (
         <div>
             <Pagina>
-                <div className="flex flex-row h-screen font-poppins w-screen"> 
+                <div className="flex flex-row h-full font-poppins w-screen"> 
                     <Menu/>
                     <div className="grid place-items-center  h-full w-full">
-                        <form action="POST" className="flex flex-col sm:grid sm:grid-cols-2 gap-6 p-10 h-100" onSubmit={criarLivro}>
+                        <form action="POST" className="flex-col items-center justify-center w-full sm:max-w-2xl sm:grid sm:grid-cols-2 gap-6 p-10" onSubmit={criarLivro}>
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>Categoria:</label>
                                 <br />
@@ -93,8 +93,9 @@ export function CadastroLivro() {
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>Foto da capa 📷</label>
                                 <br />
-                                <input type="file" name="foto"  onChange={(e) => setNovoLivro({...novoLivro, foto: e.target.files[0]})} className="inline-block bg-white text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300"/>
+                                <input type="file" name="foto"  onChange={(e) => setNovoLivro({...novoLivro, foto: e.target.files[0]})} className="inline-block bg-white w-full text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300"/>
                             </span>
+
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>idAutor</label>
                                 <br />
@@ -106,8 +107,8 @@ export function CadastroLivro() {
                                 <input type="number" value={novoLivro.qtdEstoque} onChange={(e) => setNovoLivro({...novoLivro, qtdEstoque: e.target.value})} name="qtdEstoque" className={estiloInput}/>
                             </span>
                                 
-                            <footer className="col-span-2 mt-4">
-                                <button className="bg-[#11a3b2] h-12 rounded-3xl w-55 cursor-pointer" type="submit"><strong>Cadastrar</strong></button>
+                            <footer className="col-span-2 mt-4 bg-[#023067] w-full flex justify-center">
+                                <button className="bg-[#11a3b2] h-full rounded-3xl w-full cursor-pointer" type="submit"><strong>Cadastrar</strong></button>
                             </footer>
                         </form>
                     </div>

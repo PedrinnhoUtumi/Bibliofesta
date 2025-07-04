@@ -51,7 +51,7 @@ export function Menu() {
   return (
     <div>
       {!menu &&(
-      <button className="flex p-10 sm:hidden" onClick={verificaMenu}>
+      <button className="flex text-3xl sm:hidden" onClick={verificaMenu}>
         &equiv;
       </button>)}
 

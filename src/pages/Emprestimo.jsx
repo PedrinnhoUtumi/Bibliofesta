@@ -3,11 +3,12 @@ import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { Search, StepBack, StepForward } from "lucide-react";
 import { useContext, useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { DadosContext } from "../context/DadosContext";
 export function Emprestimo() {
     const {dados} = useContext(DadosContext)
     const [livros, setLivros] = useState([])
+    const location = useLocation();
 
     const [pagina, setPagina] = useState(0);
     const livrosPagina = 3;
@@ -27,40 +28,34 @@ export function Emprestimo() {
     }
     }
 
-    function buscaImagens() {
-        if (!dados.livro || dados.livro.length === 0) return;
+    useEffect(function (){ 
+        async function buscarLivros(){
+            try {
+                const response = await fetch(`http://127.0.0.1:3000/api/usuario`)
+                if (!response.ok) {
+                    throw new Error(`Erro ao buscar livro: ${response.statusText}`)
+                }
     
-        const livrosFormatados = dados.livro.map(livro => ({
-            ...livro,
-            imagemcapa: `http://localhost:3000/${livro.imagemcapa}`
-        }));
-    
-        setLivros(livrosFormatados);
-    }
-
-
-    useEffect( function (){
-        // async function BuscarLivros(){
-        //     try {
-        //         const response = await fetch(`http://127.0.0.1:3000/cadastroLivro`)
-
-        //         if (!response.ok) {
-        //             throw new Error(`Erro ao buscar livro: ${response.statusText}`)
-        //         }
-
-        //         const data = await response.json()
-        //         setLivros(data)
-
-
-        //     } catch (erro){
-        //         console.error("erro ao" , erro)
-        //     }
-        // }
-        // BuscarLivros()
-        buscaImagens()
-        console.log("livros",livros);
+                const data = await response.json()
+                console.log("dados", data.message.livro);
+                console.log("dados", location.key);
+                console.log("dados", location.path);
+                
+                const livrosFormatados = data.message.livro.map(livro => ({
+                    ...livro,
+                    imagemcapa: `http://localhost:3000/${livro.imagemcapa}`
+                }));
+            
+                setLivros(livrosFormatados)
+                setPagina(0)
+            } catch (erro){
+                console.error("erro ao" , erro)
+            }
+        }
+        buscarLivros()
+        console.log("livros", livros);
         
-    }, [dados])
+    }, [location.key])
 
 
     return (
@@ -69,14 +64,14 @@ export function Emprestimo() {
                 <div className="flex flex-row h-screen font-poppins w-screen"> 
                     <Menu/>
                    <div className="flex flex-col justify-between items-center w-full">
-                    <span className="w-110 flex flex-row items-center justify-center rounded-2xl mt-36">
-                        <input type="text" className="w-96 h-5 p-4 bg-white focus:outline-none 	rounded-l-2xl text-black"/> 
-                        <div className="border-4 bg-white rounded-r-2xl"> <Search className="text-black "/> </div>
+                    <span className="w-full flex flex-row items-center justify-center rounded-2xl mt-36">
+                        <input type="text" className=" w-42 sm:w-96 h-5 p-4 bg-white focus:outline-none mb-10 rounded-l-2xl text-black"/> 
+                        <div className="border-4 bg-white rounded-r-2xl mb-10"> <Search className="text-black "/> </div>
                     </span>
-                    <div className="h-80 w-full flex self-end mb-40 rounded-2xl bg-[#11a3b2]/45 items-center justify-around">
+                    <div className="h-full w-full  flex mb-50 rounded-2xl bg-[#11a3b2]/45 items-center justify-around">
                         <StepBack size="50px" onClick={paginaAnterior}/>
-                        {livros.slice(0, 3).map((livro) => (
-                                <NavLink key={livro.id} to={`/emprestimo2/${livro.id}`}>
+                        {livros.slice(inicio, fim).map((livro) => (
+                                <NavLink key={livro.isbn} to={`/emprestimo2/${livro.isbn}`}>
                                     <img src={livro.imagemcapa} alt={livro.titulo} className="w-72" />
                                 </NavLink>
                             ))}

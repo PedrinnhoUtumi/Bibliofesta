@@ -87,8 +87,8 @@ export function CadastroUsuario() {
             <Pagina>
                 <div className="flex flex-row h-screen font-poppins w-screen">
                     <Menu />
-                    <div className=" grid place-items-center  h-full w-full ">
-                        <form action="" className="grid grid-cols-2 gap-6 p-10 h-100">
+                    <div className="grid place-items-center  h-full w-full ">
+                        <form action="" className="flex flex-col sm:grid sm:grid-cols-2 gap-6 p-10 h-100">
                             <span>
                                 <label htmlFor="" className={estiloLabel}>RA:</label>
                                 <br />
