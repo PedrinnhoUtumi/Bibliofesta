@@ -8,6 +8,55 @@ import { DadosContext } from "../context/DadosContext";
 export function Emprestimo2() {
   const { isbn } = useParams()
   const { dados } = useContext(DadosContext)
+  const navigate = useNavigate()
+  const [procura, setProcura] = useState("")
+  const [deletados, setDeletados] = useState([])
+
+  const cliente = [
+    { RA: "en-us", nome: "Inglês", profissao: "" },
+    { RA: "es", nome: "Espanhol", profissao: "" },
+
+  ];
+
+  async function AtualizarLivro(idCliente, dado) {
+    try {
+      navigate(`/AtualizarLivro/${idLivro}?dado=${encodeURIComponent(JSON.stringify(dado))}`)
+
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const deleteBD = async (idLivro) => {
+    try {
+      const resposta = await fetch(`http://127.0.0.1:3000/api/livro/${idLivro}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (!resposta.ok) {
+        console.error(resposta);
+        const texto = await resposta.text()
+        console.log(texto);
+      } else {
+        setDeletados((prevDeletados) => [...prevDeletados, idLivro])
+        const novosDados = {
+          ...dados,
+          Livro: dados.livro?.filter(dado => dado.idLivro !== idLivro),
+        };
+        adicionarDados(novosDados);
+
+        window.location.reload();
+      }
+
+    } catch (error) {
+      console.error(error);
+
+    }
+
+  }
+
   return (
     <div className="w-screen h-screen">
       <Pagina>
@@ -24,24 +73,27 @@ export function Emprestimo2() {
               </div>
               <div className=" w-1/4 h-full flex flex-col justify-center items-center">
                 <button
+                  onClick={empresta}
                   className="bg-[#6b0808] h-5 sm:h-12 w-20 sm:w-44 rounded-3xl text-white font-semibold mt-2"
                   type="submit">
                   Emprestar
                 </button>
                 <br />
                 <button
+                  onClick={AtualizarLivro}
                   className="bg-[#6b0808] h-5 sm:h-12 w-20 sm:w-44 rounded-3xl text-white font-semibold mt-2"
                   type="submit">
                   Atualizar
                 </button>
                 <br />
                 <button
+                  onClick={deleteBD}
                   className="bg-[#6b0808] h-5 sm:h-12 w-20 sm:w-44 rounded-3xl text-white font-semibold mt-2"
                   type="submit">
                   Excluir
                 </button>
               </div>
-              
+
             </div>
           </div>
         </div>

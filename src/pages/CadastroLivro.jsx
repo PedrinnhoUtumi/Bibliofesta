@@ -108,7 +108,7 @@ export function CadastroLivro() {
                             </span>
                                 
                             <footer className="col-span-2 mt-4 bg-[#023067] w-full flex justify-center">
-                                <button className="bg-[#11a3b2] h-full rounded-3xl w-full cursor-pointer" type="submit"><strong>Cadastrar</strong></button>
+                                <button className="bg-[#11a3b2] h-full rounded-3xl w-1/2 cursor-pointer p-3" type="submit"><strong>Cadastrar</strong></button>
                             </footer>
                         </form>
                     </div>

@@ -2,10 +2,12 @@ import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { useState } from "react";
 import bcrypt from 'bcryptjs'
+import { useNavigate } from "react-router-dom";
 
 
 
 export function Cadastro() {
+    const navigate = useNavigate()
     const [novoUsuario, setNovoUsuario] = useState({ nome: "", senha: ""});
     const [senha, setSenha] = useState("");
 
@@ -18,15 +20,7 @@ export function Cadastro() {
             alert("Preencha todos os campos!")
             return
           }
-          
-        //   const salt = await bcrypt.genSalt(10);
-        //   const hash = await bcrypt.hash(novoUsuario.senha, salt);
-        //   const usuarioParaEnviar = {
-        //     ...novoUsuario,
-        //     senha: hash,
-        //   };
-        //   console.log(novoUsuario)
-    
+
           const response = await fetch(`http://127.0.0.1:3000/cadastrar`, {
               method: "POST",
               headers: {
@@ -41,9 +35,9 @@ export function Cadastro() {
     
     
           const dados = await response.json()
-          console.log(dados)
     
-    
+          
+          navigate("/emprestimo")
           setNovoUsuario({ nome: "", senha: ""})
           } catch (error) {
           console.error(error)
@@ -55,6 +49,7 @@ export function Cadastro() {
     function verificaSenha(senha) {
         if (senha === novoUsuario.senha) {
             return true
+            
         }
         return false
     }

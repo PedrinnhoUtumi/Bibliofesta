@@ -10,7 +10,6 @@ export function Usuario() {
     const [procura, setProcura] = useState("")
     const [deletados, setDeletados] = useState([])
     const { dados, adicionarDados } = useContext(DadosContext);
-    console.log(dados);
 
     const cliente = [
         { RA: "en-us", nome: "Inglês", profissao: "" },
@@ -23,24 +22,15 @@ export function Usuario() {
         navigate("/CadastroUsuario")
     }
 
-    async function AtualizarUsuario(dados) {
-        try {
-            const response = await fetch(`http://127.0.0.1:3000/api/usuario`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(dados),
-            })
 
-            if (!response.ok) {
-                console.log(response)
-            }
+    async function AtualizarUsuario(idCliente, dado) {
+    try {
+        navigate(`/AtualizarUsuario/${idCliente}?dado=${encodeURIComponent(JSON.stringify(dado))}`)
 
-        } catch (error) {
-            console.error(error)
-        }
-      }
+    } catch (error) {
+        console.error(error)
+    }
+    }
 
     const selectBD = cliente.filter(cliente => {
         if (cliente.nome !== null) {
@@ -60,14 +50,19 @@ export function Usuario() {
                     'Content-Type': 'application/json',
                 },
             })
-            if (!resposta.ok) {
+            if (!resposta.ok) { 
                 console.error(resposta);
                 const texto = await resposta.text()
                 console.log(texto);
             } else {
-                setDeletados((prevDeletados) => [...prevDeletados, idcliente])
-                adicionarDados(dados.filter(dado => dado.idcliente !== idcliente))
-                console.log(`Usuário com ID ${idcliente} deletado com sucesso`)
+                  setDeletados((prevDeletados) => [...prevDeletados, idcliente])
+                  const novosDados = {
+                    ...dados,
+                    cliente: dados.cliente?.filter(dado => dado.idcliente !== idcliente),
+                  };
+                  adicionarDados(novosDados);
+
+                  window.location.reload();
             }
 
         } catch (error) {
@@ -91,20 +86,20 @@ export function Usuario() {
                         </span>
 
 
-                        {dados.cliente.map((dado) => (
+                        {dados.cliente?.map((dado) => (
                             <div key={dado.ra} className="w-1/2">
                                 <div className="h-15 w-full flex justify-evenly rounded-2xl mt-5 bg-[#11a3b2]/45 items-center">
                                     {dado.nomecliente}, {dado.ra}, {dado.idprofissao}
                                     <span className="flex flex-row">
                                         <Trash2 className="cursor-pointer" onClick={() => deleteBD(dado.idcliente)} />
-                                        <NotebookPen className="cursor-pointer" onClick={() => AtualizarUsuario(dados)} />
+                                        <NotebookPen className="cursor-pointer" onClick={() => AtualizarUsuario(dado.idcliente, dado)} />
                                     </span>
                                 </div>
                             </div>
                         ))}
                         
 
-                        <footer className="mt-[-20px]">
+                        <footer className="mt-[50px]">
                             <button className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer " type="submit" onClick={cadastrarUsuario}><strong>Cadastrar</strong></button>
                         </footer>
 

@@ -1,19 +1,22 @@
 import { Menu } from "../components/Menu";
 import { Pagina } from "../components/Pagina";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { DadosContext } from "../context/DadosContext";
-import { useNavigate } from "react-router-dom";
+import { useParams, useLocation} from "react-router-dom";
 
 
-export function CadastroUsuario() {
-    const navigate = useNavigate()
-
+export function AtualizarUsuario() {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    let dado = searchParams.get("dado");
+    const [novoUsuario, setNovoUsuario] = useState(dado || { nomeCliente: "", RA: "", idProfissao: "", telefone: "", dataNasc: "", email: "", codigoCurso: "" });
     const estiloInput = `bg-white rounded-3xl text-black w-72 h-7`
     const estiloLabel = `text-2xl`
     const { dados, adicionarDados } = useContext(DadosContext);
     const [isVisivel, setIsVisivel] = useState(false)
+    const { idCliente } = useParams()
 
-    const [novoUsuario, setNovoUsuario] = useState({ nomeCliente: "", RA: "", idProfissao: "", telefone: "", dataNasc: "", email: "", codigoCurso: "" });
+
     const [curso, setCurso] = useState({ codigoCurso: "", nomeCurso: "" })
 
     function cadastroCurso(e) {
@@ -22,38 +25,43 @@ export function CadastroUsuario() {
         console.log(dados)
     }
 
-    async function criarUsuario(e) {
-        e.preventDefault();
+    // async function criarUsuario(e) {
+    //     e.preventDefault();
+    //     console.log("dado", dado);
+    //     console.log("idCliente", idCliente);
+        
+                    
+    // }
+
+    useEffect(() => {
+        const dadoUrl = searchParams.get("dado");
         try {
-            if (!novoUsuario.nomeCliente || !novoUsuario.RA || !novoUsuario.idProfissao || !novoUsuario.telefone || !novoUsuario.dataNasc || !novoUsuario.email || !novoUsuario.codigoCurso) {
-                alert("Preencha todos os campos!")
-                return
-            }
+          const obj = JSON.parse(dadoUrl);
+          setNovoUsuario(obj);
+        } catch (error) {
+          console.error("Erro ao fazer parse do dado da URL:", error);
+        }
+      }, []);
 
 
-            const response = await fetch(`http://127.0.0.1:3000/cadastroUsuario`, {
-                method: "POST",
+    async function atualizaUsuario(idCliente, dado) {
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/api/usuario?idCliente=${idCliente}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(novoUsuario),
+                body: JSON.stringify({dados: dado}),
             })
 
             if (!response.ok) {
-                throw new Error(`Erro ao criar usuário: ${response.statusText}`)
+                console.log(response)
             }
 
-
-            const dados = await response.json()
-            console.log(dados)
-            navigate("/Usuario")
-            window.location.reload
-
-            setNovoUsuario({ nomeCliente: "", RA: "", idProfissao: "", telefone: "", dataNasc: "", email: "", codigoCurso: "" })
         } catch (error) {
             console.error(error)
         }
-    }
+      }
 
     async function criarCurso(e) {
         e.preventDefault();
@@ -141,26 +149,34 @@ export function CadastroUsuario() {
                             </span>
                         </form>
                         <span>
-                            <button onClick={cadastroCurso} className="ml-[350px]">
-                                {isVisivel ? 'Cancelar' : 'Cadastrar Curso'}
-                            </button>
-                            {isVisivel && (
-                                <div  className="ml-[350px]">
-                                    <label htmlFor="" className={estiloLabel}>Código Curso</label>
-                                    <br />
-                                    <input type="text" className={estiloInput} value={curso.codigoCurso} onChange={(e) => setCurso({ ...curso, codigoCurso: e.target.value })} />
-                                    <br />
-                                    <label htmlFor="" className={estiloLabel}>Nome Curso</label>
-                                    <br />
-                                    <input type="text" className={estiloInput} value={curso.nomeCurso} onChange={(e) => setCurso({ ...curso, nomeCurso: e.target.value })} />
-                                    <br />
-                                    <button className="bg-[#11a3b2] h-9 mt-2 rounded-3xl w-40 cursor-pointer " onClick={criarCurso}>Cadastrar</button>
-                                </div>
-                            )}
-                            <br />
+                        <button onClick={cadastroCurso}>
+                            {isVisivel ? 'Cancelar' : 'Cadastrar'}
+                        </button>
+                                { isVisivel && (
+                                    <div>
+                                        <label htmlFor="" className={estiloLabel}>Código Curso</label>
+                                        <br />
+                                        <input type="text" className={estiloInput} value={curso.codigoCurso} onChange={(e) => setCurso({ ...curso, codigoCurso: e.target.value })}/>
+                                        <br />
+                                        <label htmlFor="" className={estiloLabel}>Nome Curso</label>
+                                        <br />
+                                        <input type="text" className={estiloInput} value={curso.nomeCurso} onChange={(e) => setCurso({ ...curso, nomeCurso: e.target.value })}/>
+                                        <br />
+                                        <button className="bg-[#11a3b2] h-9 mt-2 rounded-3xl w-40 cursor-pointer " onClick={criarCurso}>Cadastrar</button>
+                                    </div>
+                                )}
+                                <br />
+                                <label htmlFor="">Cursos</label>
+                                <select name="" id="">
+                                    {dados.curso?.map((dado) => (
+                                        <option key={dado.codigo} value={dado.nomecurso}>
+                                            {dado.nomecurso}
+                                        </option>
+                                    ))}
+                                </select>
                         </span>
                         <footer className="mt-[-20px]">
-                            <button className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer " type="submit" onClick={criarUsuario}><strong>Cadastrar</strong></button>
+                            <button className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer " type="submit" onClick={() => atualizaUsuario(idCliente, novoUsuario)}><strong>Atualizar</strong></button>
                         </footer>
                     </div>
                 </div>

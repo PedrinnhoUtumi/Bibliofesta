@@ -24,13 +24,7 @@ export function Login() {
                 navigate("/emprestimo")
                 
             } else {
-                console.log("Tentaiva", i);
-                
-                console.log(login);
-                console.log(hash);
-                console.log(dados.bibliotecario[i].nomebibliotecario);
-                console.log(dados.bibliotecario[i].senha);
-                
+                console.log("Tentaiva", i)          
             }
         }
         

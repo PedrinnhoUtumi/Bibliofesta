@@ -37,9 +37,7 @@ export function Emprestimo() {
                 }
     
                 const data = await response.json()
-                console.log("dados", data.message.livro);
-                console.log("dados", location.key);
-                console.log("dados", location.path);
+                console.log("dados de livro", data.message.livro);
                 
                 const livrosFormatados = data.message.livro.map(livro => ({
                     ...livro,
