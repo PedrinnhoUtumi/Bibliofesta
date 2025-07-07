@@ -3,8 +3,10 @@ import { Pagina } from "../components/Pagina";
 import { useContext, useState } from "react";
 import { DadosContext } from "../context/DadosContext";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function CadastroLivro() {
+    const navigate = useNavigate()
     const { dados, adicionarDados } = useContext(DadosContext);
     const estiloInput = `bg-white rounded-3xl text-black w-full h-full`
     const estiloLabel = `text-2xl`
@@ -38,7 +40,7 @@ export function CadastroLivro() {
     
           const dados = await response.json()
           console.log(dados)
-    
+          navigate("/emprestimo")
     
           setNovoLivro({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: ""})
           } catch (error) {

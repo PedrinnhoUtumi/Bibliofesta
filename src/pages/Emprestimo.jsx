@@ -39,10 +39,15 @@ export function Emprestimo() {
                 const data = await response.json()
                 console.log("dados de livro", data.message.livro);
                 
-                const livrosFormatados = data.message.livro.map(livro => ({
-                    ...livro,
-                    imagemcapa: `http://localhost:3000/${livro.imagemcapa}`
-                }));
+                
+                const livrosFormatados = data.message.livro.map(livro => {
+                    console.log("imagemcapa bruta:", livro.imagemcapa);
+                    return {
+                        ...livro,
+                        imagemcapa: `http://localhost:3000/${livro.imagemcapa}`
+                    };
+                });
+
             
                 setLivros(livrosFormatados)
                 setPagina(0)
@@ -70,7 +75,7 @@ export function Emprestimo() {
                         <StepBack size="50px" onClick={paginaAnterior}/>
                         {livros.slice(inicio, fim).map((livro) => (
                                 <NavLink key={livro.isbn} to={`/emprestimo2/${livro.isbn}`}>
-                                    <img src={livro.imagemcapa} alt={livro.titulo} className="w-72" />
+                                    <img src={livro.imagemcapa} alt={livro.titulo} className="w-42 h-52" />
                                 </NavLink>
                             ))}
                         <StepForward size="50px" onClick={proximaPagina}/>
