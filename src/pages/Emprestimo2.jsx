@@ -2,35 +2,31 @@ import { Menu } from "../components/Menu";
 import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { Search, StepBack, StepForward } from "lucide-react";
-import { NavLink, useParams } from "react-router-dom";
-import { useContext } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
 import { DadosContext } from "../context/DadosContext";
 export function Emprestimo2() {
   const { isbn } = useParams()
-  const { dados } = useContext(DadosContext)
+  const { dados, adicionarDados } = useContext(DadosContext)
   const navigate = useNavigate()
   const [procura, setProcura] = useState("")
   const [deletados, setDeletados] = useState([])
 
-  const cliente = [
-    { RA: "en-us", nome: "Inglês", profissao: "" },
-    { RA: "es", nome: "Espanhol", profissao: "" },
+  const livro = dados.livro?.find(l => l.isbn === isbn);
 
-  ];
-
-  async function AtualizarLivro(idCliente, dado) {
+  async function AtualizarLivro(isbn, dado) {
     try {
-      navigate(`/AtualizarLivro/${idLivro}?dado=${encodeURIComponent(JSON.stringify(dado))}`)
+      navigate(`/AtualizarLivro/${isbn}?dado=${encodeURIComponent(JSON.stringify(dado))}`)
 
     } catch (error) {
       console.error(error)
     }
   }
 
-  const deleteBD = async (idLivro) => {
+  const deleteBD = async (isbn) => {
     try {
-      const resposta = await fetch(`http://127.0.0.1:3000/api/livro/${idLivro}`, {
-        method: "DELETE",
+      const resposta = await fetch(`http://127.0.0.1:3000/api/livro/${isbn}`, {
+        method: "put",
         headers: {
           'Content-Type': 'application/json',
         },
@@ -40,14 +36,15 @@ export function Emprestimo2() {
         const texto = await resposta.text()
         console.log(texto);
       } else {
-        setDeletados((prevDeletados) => [...prevDeletados, idLivro])
+        setDeletados((prevDeletados) => [...prevDeletados, isbn])
         const novosDados = {
           ...dados,
-          Livro: dados.livro?.filter(dado => dado.idLivro !== idLivro),
+          Livro: dados.livro?.filter(dado => dado.isbn !== isbn),
         };
         adicionarDados(novosDados);
 
-        window.location.reload();
+        navigate("/emprestimo")
+        // window.location.reload();
       }
 
     } catch (error) {
@@ -73,7 +70,7 @@ export function Emprestimo2() {
               </div>
               <div className=" w-1/4 h-full flex flex-col justify-center items-center">
                 <button
-                  onClick={empresta}
+                  // onClick={empresta}
                   className="bg-[#6b0808] h-5 sm:h-12 w-20 sm:w-44 rounded-3xl text-white font-semibold mt-2"
                   type="submit">
                   Emprestar
@@ -87,7 +84,7 @@ export function Emprestimo2() {
                 </button>
                 <br />
                 <button
-                  onClick={deleteBD}
+                  onClick={() => deleteBD(livro.isbn)}
                   className="bg-[#6b0808] h-5 sm:h-12 w-20 sm:w-44 rounded-3xl text-white font-semibold mt-2"
                   type="submit">
                   Excluir

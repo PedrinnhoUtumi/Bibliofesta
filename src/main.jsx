@@ -14,6 +14,7 @@ import { Emprestimo3 } from './pages/Emprestimo3';
 import { Usuario } from './pages/Usuario';
 import { AtualizarUsuario } from './pages/AtualizarUsuario';
 import { DadosProvider } from './context/DadosContext';
+import { AtualizarLivro } from './pages/AtualizarLivro';
 
 const rotas = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const rotas = createBrowserRouter(
       <Route path="/gerenciarDividas" element={<GerenciarDividas />} />
       <Route path="/emprestimo2/:isbn" element={<Emprestimo2/>}/>
       <Route path="/atualizarUsuario/:idCliente" element={<AtualizarUsuario/>}/>
+      <Route path="/atualizarLivro/:isbn" element={<AtualizarLivro/>}/>
       <Route path="/emprestimo3" element={<Emprestimo3/>}/>
     </>
   )

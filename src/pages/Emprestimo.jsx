@@ -3,7 +3,7 @@ import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { Search, StepBack, StepForward } from "lucide-react";
 import { useContext, useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { DadosContext } from "../context/DadosContext";
 export function Emprestimo() {
     const {dados} = useContext(DadosContext)

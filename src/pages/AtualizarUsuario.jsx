@@ -9,7 +9,7 @@ export function AtualizarUsuario() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     let dado = searchParams.get("dado");
-    const [novoUsuario, setNovoUsuario] = useState(dado || { nomeCliente: "", RA: "", idProfissao: "", telefone: "", dataNasc: "", email: "", codigoCurso: "" });
+    const [novoUsuario, setNovoUsuario] = useState({ nomecliente: "", ra: "", idprofissao: "", telefone: "", datanasc: "", email: "", codigocurso: "" });
     const estiloInput = `bg-white rounded-3xl text-black w-72 h-7`
     const estiloLabel = `text-2xl`
     const { dados, adicionarDados } = useContext(DadosContext);
@@ -34,14 +34,17 @@ export function AtualizarUsuario() {
     // }
 
     useEffect(() => {
-        const dadoUrl = searchParams.get("dado");
         try {
-          const obj = JSON.parse(dadoUrl);
+          const obj = JSON.parse(dado);
+          console.log("dados recebidos", obj);
           setNovoUsuario(obj);
         } catch (error) {
           console.error("Erro ao fazer parse do dado da URL:", error);
         }
       }, []);
+
+    console.log("novo usuario após dados recebidos", novoUsuario);
+    
 
 
     async function atualizaUsuario(idCliente, dado) {
@@ -102,19 +105,19 @@ export function AtualizarUsuario() {
                             <span>
                                 <label htmlFor="" className={estiloLabel}>RA:</label>
                                 <br />
-                                <input type="text" value={novoUsuario.RA} onChange={(e) => setNovoUsuario({ ...novoUsuario, RA: e.target.value })} className={estiloInput} />
+                                <input type="text" value={novoUsuario.ra} onChange={(e) => setNovoUsuario({ ...novoUsuario, ra: e.target.value })} className={estiloInput} />
                             </span>
 
                             <span>
                                 <label htmlFor="" className={estiloLabel}>Nome:</label>
                                 <br />
-                                <input type="text" value={novoUsuario.nomeCliente} onChange={(e) => setNovoUsuario({ ...novoUsuario, nomeCliente: e.target.value })} className={estiloInput} />
+                                <input type="text" value={novoUsuario.nomecliente} onChange={(e) => setNovoUsuario({ ...novoUsuario, nomecliente: e.target.value })} className={estiloInput} />
                             </span>
 
                             <span>
                                 <label htmlFor="" className={estiloLabel}>Profissão:</label>
                                 <br />
-                                <input type="number" value={novoUsuario.idProfissao} onChange={(e) => setNovoUsuario({ ...novoUsuario, idProfissao: e.target.value })} className={estiloInput} />
+                                <input type="number" value={novoUsuario.idprofissao} onChange={(e) => setNovoUsuario({ ...novoUsuario, idprofissao: e.target.value })} className={estiloInput} />
                             </span>
 
                             <span>
@@ -127,7 +130,7 @@ export function AtualizarUsuario() {
                             <span>
                                 <label htmlFor="" className={estiloLabel}>Curso:</label>
                                 <br />
-                                <input type="text" value={novoUsuario.codigoCurso} onChange={(e) => setNovoUsuario({ ...novoUsuario, codigoCurso: e.target.value })} className={estiloInput} />
+                                <input type="text" value={novoUsuario.codigocurso} onChange={(e) => setNovoUsuario({ ...novoUsuario, codigocurso: e.target.value })} className={estiloInput} />
 
                                 {/* <select selected id="codigoCurso" name="curso" >
                                     <option value="informatica">TI24E</option>
@@ -145,7 +148,7 @@ export function AtualizarUsuario() {
                             <span>
                                 <label htmlFor="" className={estiloLabel}>Data:</label>
                                 <br />
-                                <input type="date" value={novoUsuario.dataNasc} onChange={(e) => setNovoUsuario({ ...novoUsuario, dataNasc: e.target.value })} className={estiloInput} />
+                                <input type="date" value={novoUsuario.datanasc} onChange={(e) => setNovoUsuario({ ...novoUsuario, datanasc: e.target.value })} className={estiloInput} />
                             </span>
                         </form>
                         <span>
