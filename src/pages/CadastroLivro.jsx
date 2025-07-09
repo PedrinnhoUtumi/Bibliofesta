@@ -16,7 +16,7 @@ export function CadastroLivro() {
         try {
           if (!novoLivro.ISBN || !novoLivro.idCategoria || !novoLivro.editora || !novoLivro.titulo || !novoLivro.idAutor || !novoLivro.edicao || !novoLivro.resumo) {
             alert("Preencha todos os campos!")
-            return
+            return  
           }
           console.log(novoLivro.qtdEstoque);
           const formData = new FormData();
@@ -95,7 +95,7 @@ export function CadastroLivro() {
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>Foto da capa 📷</label>
                                 <br />
-                                <input type="file" name="foto"  onChange={(e) => setNovoLivro({...novoLivro, foto: e.target.files[0]})} className="inline-block bg-white w-full text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300"/>
+                                <input type="file" name="foto" onChange={(e) => setNovoLivro({...novoLivro, foto: e.target.files[0]})} className="inline-block bg-white w-full text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300"/>
                             </span>
 
                             <span>

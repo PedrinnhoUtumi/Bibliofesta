@@ -14,6 +14,14 @@ export function Emprestimo2() {
 
   const livro = dados.livro?.find(l => l.isbn === isbn);
 
+  async function emprestarLivro(isbn, idautor, ra) {
+    try {
+      navigate(`/emprestimo3/${isbn}/${idautor}/${ra}`)
+    } catch (error) {
+      
+    }
+  }
+
   async function AtualizarLivro(isbn, dado) {
     try {
       navigate(`/AtualizarLivro/${isbn}?dado=${encodeURIComponent(JSON.stringify(dado))}`)
@@ -66,8 +74,8 @@ export function Emprestimo2() {
             </span>
             <div className="h-full w-full flex flex-row mb-[400px] rounded-2xl bg-[#11a3b2]/45 items-center justify-center">
               <div className="w-72">
-                <img src={imagemLogin} alt="" className="w-44 h-44 sm:w-full sm:h-full" />
-              </div>
+               <img src={`http://localhost:3000/${livro?.imagemcapa}`} alt={livro?.titulo || "Imagem"} className="w-44 h-44 sm:w-full sm:h-full" />
+              </div>  
               <div className=" w-1/4 h-full flex flex-col justify-center items-center">
                 <button
                   // onClick={empresta}
@@ -77,7 +85,7 @@ export function Emprestimo2() {
                 </button>
                 <br />
                 <button
-                  onClick={AtualizarLivro}
+                  onClick={() => AtualizarLivro(livro.isbn, livro)}
                   className="bg-[#6b0808] h-5 sm:h-12 w-20 sm:w-44 rounded-3xl text-white font-semibold mt-2"
                   type="submit">
                   Atualizar

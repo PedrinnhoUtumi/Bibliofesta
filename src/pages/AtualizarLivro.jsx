@@ -13,7 +13,7 @@ export function AtualizarLivro() {
     const estiloLabel = `text-2xl`
     const { isbn } = useParams()
 
-    const [novoLivro, setNovoLivro] = useState({ ISBN: "", titulo: "", idCategoria: "", idAutor: "", editora: "", edicao: "", qtdEstoque: "", imagemCapa: "", resumo: "" });
+    const [novoLivro, setNovoLivro] = useState({ isbn: "", titulo: "", idcategoria: "", idautor: "", editora: "", edicao: "", qtdestoque: "", imagemcapa: "", resumo: "" });
 
     useEffect(() => {
         try {
@@ -25,19 +25,31 @@ export function AtualizarLivro() {
         }
       }, []);
 
-    console.log("novo usuario após dados recebidos", novoLivro);
+    console.log("novo livro após dados recebidos", novoLivro);
     
 
 
     async function atualizaLivro(isbn, dado) {
         try {
-            const response = await fetch(`http://127.0.0.1:3000/api/livro?isbn=${isbn}`, {
+            const formData = new FormData();
+            Object.entries(novoLivro).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+    
+            const response = await fetch(`http://127.0.0.1:3000/api/usuario/livro?isbn=${isbn}`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({dados: dado}),
+                // headers: {
+                //     "Content-Type": "application/json",
+                // },
+                // body: JSON.stringify({dados: dado}),
+                body: formData,
+
             })
+            const dados = await response.json()
+            console.log(dados)
+            navigate("/emprestimo")
+        
+            setNovoLivro({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", imagemcapa: "", qtdEstoque: ""})
 
             if (!response.ok) {
                 console.log(response)
@@ -50,7 +62,7 @@ export function AtualizarLivro() {
 
       async function handleSubmit(e) {
         e.preventDefault();
-        await atualizaLivro(novoLivro.ISBN, novoLivro);
+        await atualizaLivro(novoLivro.isbn, novoLivro);
       }
 
     return (
@@ -63,13 +75,13 @@ export function AtualizarLivro() {
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>Categoria:</label>
                                 <br />
-                                <input type="text" value={novoLivro?.idCategoria} onChange={(e) => setNovoLivro({ ...novoLivro, idCategoria: e.target.value })} className={estiloInput} />
+                                <input type="text" value={novoLivro?.idcategoria} onChange={(e) => setNovoLivro({ ...novoLivro, idcategoria: e.target.value })} className={estiloInput} />
                             </span>
 
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>ISBN:</label>
                                 <br />
-                                <input type="text" value={novoLivro?.ISBN} onChange={(e) => setNovoLivro({ ...novoLivro, ISBN: e.target.value })} className={estiloInput} />
+                                <input type="text" value={novoLivro?.isbn} onChange={(e) => setNovoLivro({ ...novoLivro, isbn: e.target.value })} className={estiloInput} />
                             </span>
 
                             <span>
@@ -99,18 +111,18 @@ export function AtualizarLivro() {
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>Foto da capa 📷</label>
                                 <br />
-                                <input type="file" name="foto" onChange={(e) => setNovoLivro({ ...novoLivro, foto: e.target.files[0] })} className="inline-block bg-white w-full text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300" />
+                                <input type="file" name="imagemcapa" onChange={(e) => setNovoLivro({ ...novoLivro, imagemcapa: e.target.files[0] })} className="inline-block bg-white w-full text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300" />
                             </span>
 
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>idAutor</label>
                                 <br />
-                                <input type="text" value={novoLivro?.idAutor} onChange={(e) => setNovoLivro({ ...novoLivro, idAutor: e.target.value })} name="idAutor" className={estiloInput} />
+                                <input type="text" value={novoLivro?.idautor} onChange={(e) => setNovoLivro({ ...novoLivro, idautor: e.target.value })} name="idAutor" className={estiloInput} />
                             </span>
                             <span>
                                 <label htmlFor="" className={`text-xl sm:text-2xl`}>Quantidade de estoque</label>
                                 <br />
-                                <input type="number" value={novoLivro?.qtdEstoque} onChange={(e) => setNovoLivro({ ...novoLivro, qtdEstoque: e.target.value })} name="qtdEstoque" className={estiloInput} />
+                                <input type="number" value={novoLivro?.qtdestoque} onChange={(e) => setNovoLivro({ ...novoLivro, qtdestoque: e.target.value })} name="qtdEstoque" className={estiloInput} />
                             </span>
 
                             <footer className="col-span-2 mt-4 bg-[#023067] w-full flex justify-center">

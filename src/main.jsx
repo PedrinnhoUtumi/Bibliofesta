@@ -30,7 +30,7 @@ const rotas = createBrowserRouter(
       <Route path="/emprestimo2/:isbn" element={<Emprestimo2/>}/>
       <Route path="/atualizarUsuario/:idCliente" element={<AtualizarUsuario/>}/>
       <Route path="/atualizarLivro/:isbn" element={<AtualizarLivro/>}/>
-      <Route path="/emprestimo3" element={<Emprestimo3/>}/>
+      <Route path="/emprestimo3/:isbn/:idautor/:ra" element={<Emprestimo3/>}/>
     </>
   )
 );
