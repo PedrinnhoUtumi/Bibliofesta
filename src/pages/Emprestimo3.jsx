@@ -6,7 +6,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { DadosContext } from "../context/DadosContext";
 export function Emprestimo3() {
-  const { isbn, idautor, ra } = useParams()
+  const { isbn, idautor } = useParams()
   const { dados, adicionarDados } = useContext(DadosContext)
   const navigate = useNavigate()
   const [procura, setProcura] = useState("")
@@ -14,24 +14,39 @@ export function Emprestimo3() {
 
   const livro = dados.livro?.find(l => l.isbn === isbn);
   const autor = dados.autor?.find(a => String(a.idautor) === idautor);
-  const cliente = dados.cliente?.find(u => String(u.ra) === ra);
+
   console.log("isb", isbn);
   console.log("idautor", idautor);
   console.log("livro", livro);
   console.log("autor", autor);
+  function getData() {
+    const agora = new Date();
 
-  const [novoEmprestimo, setNovoEmprestimo] = useState({ ISBN: "", status: "", idCliente: "", dataEmprestimo: ""});
+    const horaBrasilia = new Date(agora.getTime() - 60000);
+
+    const ano = horaBrasilia.getFullYear();
+    const mes = String(horaBrasilia.getMonth() + 1).padStart(2, '0');
+    const dia = String(horaBrasilia.getDate()).padStart(2, '0');
+    const hora = String(horaBrasilia.getHours()).padStart(2, '0');
+    const minuto = String(horaBrasilia.getMinutes()).padStart(2, '0');
+    const segundo = String(horaBrasilia.getSeconds()).padStart(2, '0');
+    const hoje = `${ano}-${mes}-${dia} ${hora}:${parseInt(minuto) + 1}:${segundo}`;
+
+    return hoje;
+  }
+  const hoje = getData()
+  const [novoEmprestimo, setNovoEmprestimo] = useState({ ISBN: isbn, status: true, idCliente: "", dataEmprestimo: hoje});
 
       async function criarEmprestimo(e) {
         e.preventDefault();
         try {
-            if (!novoEmprestimo.isbn || !novoEmprestimo.status || !novoEmprestimo.idlCiente || !novoEmprestimo.dataEmprestimo) {
+            if (!novoEmprestimo.idCliente) {
                 alert("Preencha todos os campos!")
                 return
             }
 
 
-            const response = await fetch(`http://127.0.0.1:3000/cadastroUsuario`, {
+            const response = await fetch(`http://127.0.0.1:3000/api/emprestimo`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -46,8 +61,8 @@ export function Emprestimo3() {
 
             const dados = await response.json()
             console.log(dados)
+            window.location.reload()
             navigate("/emprestimo")
-            window.location.reload
 
             setnovoEmprestimo({ ISBN: "", status: "", idCliente: "", dataEmprestimo: "" })
         } catch (error) {
@@ -76,15 +91,13 @@ export function Emprestimo3() {
                   {livro?.resumo}
                 </p>
               </div>
-              <select name="cliente" id="cliente">
-                <option value="">selecione </option>
+              <select name="cliente" id="cliente" value={novoEmprestimo.idCliente} onChange={(e) => setNovoEmprestimo({...novoEmprestimo, idCliente: e.target.value})}>
                   {dados.cliente?.map((u) => (
-                    <option key={u?.ra} value={u?.ra}>
+                    <option key={u?.idcliente} value={u?.idcliente}>
                       {u?.nomecliente}
                     </option>
                   ))
                   }
-
 
               </select>
             </div>

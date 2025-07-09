@@ -16,9 +16,9 @@ export function Emprestimo2() {
 
   async function emprestarLivro(isbn, idautor, ra) {
     try {
-      navigate(`/emprestimo3/${isbn}/${idautor}/${ra}`)
+      navigate(`/emprestimo3/${isbn}/${idautor}/`)
     } catch (error) {
-      
+      console.log(error);
     }
   }
 
@@ -74,11 +74,11 @@ export function Emprestimo2() {
             </span>
             <div className="h-full w-full flex flex-row mb-[400px] rounded-2xl bg-[#11a3b2]/45 items-center justify-center">
               <div className="w-72">
-               <img src={`http://localhost:3000/${livro?.imagemcapa}`} alt={livro?.titulo || "Imagem"} className="w-44 h-44 sm:w-full sm:h-full" />
+               <img src={`http://localhost:3000/${livro?.imagemcapa}`} alt={livro?.titulo || "Imagem"} className="w-44 h-56 ml-20" />
               </div>  
               <div className=" w-1/4 h-full flex flex-col justify-center items-center">
                 <button
-                  // onClick={empresta}
+                  onClick={() => emprestarLivro(livro.isbn, livro.idautor)}
                   className="bg-[#6b0808] h-5 sm:h-12 w-20 sm:w-44 rounded-3xl text-white font-semibold mt-2"
                   type="submit">
                   Emprestar

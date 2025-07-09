@@ -46,8 +46,8 @@ export function CadastroUsuario() {
 
             const dados = await response.json()
             console.log(dados)
+            window.location.reload()
             navigate("/Usuario")
-            window.location.reload
 
             setNovoUsuario({ nomeCliente: "", RA: "", idProfissao: "", telefone: "", dataNasc: "", email: "", codigoCurso: "" })
         } catch (error) {
