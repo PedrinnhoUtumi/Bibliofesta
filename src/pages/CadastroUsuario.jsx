@@ -87,15 +87,15 @@ export function CadastroUsuario() {
     return (
         <div>
             <Pagina>
-                <div className="flex flex-row h-full font-poppins w-screen">
+                <div className="flex flex-row min-h-screen font-poppins w-screen">
                     <Menu />
 
-                    <div className="flex flex-col items-center justify-start w-full p-10">
+                    <div className="flex flex-col items-center justify-center w-full p-10">
                         
-                        <h1 className="text-4xl font-bold text-center mb-8">Cadastro de Usuários</h1>
 
                         
-                        <div className="bg-[#03588C] shadow-xl rounded-xl p-8 w-full max-w-5xl">
+                        <div className="bg-[#03588C] shadow-xl rounded-xl p-8 w-full max-w-5xl min-h-fit">
+                        <h1 className="text-4xl font-bold text-center mb-8">Cadastro de Usuários</h1>
                             <form className="grid grid-cols-3 sm:grid-cols-2 gap-6">
                                 
                                 <span>
@@ -113,7 +113,7 @@ export function CadastroUsuario() {
                                 <span>
                                     <label className={estiloLabel}>Profissão:</label>
                                     <br />
-                                    <input type="number" value={novoUsuario.idProfissao} onChange={(e) => setNovoUsuario({ ...novoUsuario, idProfissao: e.target.value })} className={estiloInput} />
+                                    <input type="text" value={novoUsuario.idProfissao} onChange={(e) => setNovoUsuario({ ...novoUsuario, idProfissao: e.target.value })} className={estiloInput} />
                                 </span>
                                 <span>
                                     <label className={estiloLabel}>Telefone:</label>
@@ -145,7 +145,7 @@ export function CadastroUsuario() {
                                     {isVisivel ? 'Fechar Cadastro de Curso' : 'Cadastrar Novo Curso'}
                                 </button>
 
-                                <button className="bg-[#11a3b2] text-white font-semibold h-10 px-6 rounded-3xl" type="submit" onClick={criarUsuario}>
+                                <button className="bg-[#48D1A0] text-white font-semibold h-10 px-6 rounded-3xl" type="submit" onClick={criarUsuario}>
                                     Cadastrar Usuário
                                 </button>
                             </div>
@@ -153,7 +153,7 @@ export function CadastroUsuario() {
                             {isVisivel && (
                                 <div className="mt-6 border-t pt-6">
                                     <h2 className="text-2xl font-semibold mb-4">Cadastro de Curso</h2>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ">
                                         <div>
                                             <label className={estiloLabel}>Código do Curso:</label>
                                             <input type="text" className={estiloInput} value={curso.codigoCurso} onChange={(e) => setCurso({ ...curso, codigoCurso: e.target.value })} />
@@ -163,10 +163,10 @@ export function CadastroUsuario() {
                                             <label className={estiloLabel}>Nome do Curso:</label>
                                             <input type="text" className={estiloInput} value={curso.nomeCurso} onChange={(e) => setCurso({ ...curso, nomeCurso: e.target.value })} />
                                         </div>
+                                        <button className="bg-[#48D1A0] text-white font-semibold h-9 rounded-3xl w-40 mt-7" onClick={criarCurso}>
+                                            Cadastrar Curso
+                                        </button>
                                     </div>
-                                    <button className="bg-[#11a3b2] text-white font-semibold h-9 mt-4 rounded-3xl w-40" onClick={criarCurso}>
-                                        Cadastrar Curso
-                                    </button>
                                 </div>
                             )}
                         </div>

@@ -44,8 +44,8 @@ export function VerificarEmprestimos() {
 
     const deleteBD = async (idcliente) => {
         try {
-            const resposta = await fetch(`http://127.0.0.1:3000/api/usuario/${idcliente}`, {
-                method: "DELETE",
+            const resposta = await fetch(`http://127.0.0.1:3000/api/emprestimo/${idcliente}`, {
+                method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -84,7 +84,6 @@ export function VerificarEmprestimos() {
                             <input type="text" className="w-96 h-5 p-4 bg-white focus:outline-none 	rounded-l-2xl text-black" onChange={(e) => setProcura(e.target.value)}/>
                             <div className="border-4 bg-white rounded-r-2xl"> <Search className="text-black " /> </div>
                         </span>
-
 
                         {dados.emprestimo?.map((dado) => (
                             <div key={dado.idemprestimo} className="w-1/2">

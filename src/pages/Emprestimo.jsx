@@ -67,6 +67,7 @@ export function Emprestimo() {
                 <div className="flex flex-row h-screen font-poppins w-screen"> 
                     <Menu/>
                    <div className="flex flex-col justify-between items-center w-full">
+                    
                     <span className="w-full flex flex-row items-center justify-center rounded-2xl mt-36">
                         <input type="text" className=" w-42 sm:w-96 h-5 p-4 bg-white focus:outline-none mb-10 rounded-l-2xl text-black"/> 
                         <div className="border-4 bg-white rounded-r-2xl mb-10"> <Search className="text-black "/> </div>

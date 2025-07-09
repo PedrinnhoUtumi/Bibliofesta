@@ -80,11 +80,15 @@ export function Menu() {
 
             <NavLink to="/emprestimo" className={getEstilo}>
               <ArrowLeftRight />
-              Emprestimo
+              Empréstimo
+            </NavLink>
+            <NavLink to="/verificarEmprestimos" className={getEstilo}>
+              <ArrowLeftRight />
+              Ver Empréstimos
             </NavLink>
             <NavLink to="/usuario" className={getEstilo}>
               <NotebookText />
-              Cadastrar Usuário
+              Listar Usuário
             </NavLink>
             <NavLink to="/cadastroLivro" className={getEstilo}>
               <BookOpenText />
@@ -97,10 +101,12 @@ export function Menu() {
             </NavLink>
           </nav>
           <button className={`flex ml-5 sm:hidden ${getEstilo}`} onClick={verificaMenu}>Fechar Menu</button>
+          <NavLink to="/" >
           <footer className="absolute bottom-0 p-2 w-72 flex justify-center cursor-pointer text-black border-1">
             <LogOutIcon />
             <span className="ml-5"> Log out </span>
           </footer>
+          </NavLink>
         </aside>
       )} 
       </div>
