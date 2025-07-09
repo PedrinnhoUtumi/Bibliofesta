@@ -17,15 +17,18 @@ export function Usuario() {
   const [deletados, setDeletados] = useState([]);
   const { dados, adicionarDados } = useContext(DadosContext);
 
-  const cliente = [
-    { RA: "en-us", nome: "Inglês", profissao: "" },
-    { RA: "es", nome: "Espanhol", profissao: "" },
-  ];
+  // const cliente = [
+  //   { RA: "en-us", nome: "Inglês", profissao: "" },
+  //   { RA: "es", nome: "Espanhol", profissao: "" },
+  // ];
+
+  // const cliente = 
 
   const cadastrarUsuario = (e) => {
     e.preventDefault();
     navigate("/CadastroUsuario");
   };
+
 
   async function AtualizarUsuario(idCliente, dado) {
     try {
@@ -39,15 +42,9 @@ export function Usuario() {
     }
   }
 
-  const selectBD = cliente.filter((cliente) => {
-    if (cliente.nome !== null) {
-      cliente.nome.toLowerCase().includes(procura.toLowerCase());
-    } else if (cliente.RA !== null) {
-      cliente.RA.toLowerCase().includes(procura.toLowerCase());
-    } else {
-      cliente.dataNasc.toLowerCase().includes(procura.toLowerCase());
-    }
-  });
+  const selectBD = dados.cliente?.filter((usuario) =>
+    usuario.nomecliente?.toLowerCase().includes(procura.toLowerCase())
+  );
 
   const deleteBD = async (idcliente) => {
     try {
@@ -74,11 +71,13 @@ export function Usuario() {
         };
         adicionarDados(novosDados);
 
-        window.location.reload();
+        
       }
     } catch (error) {
       console.error(error);
     }
+
+    window.location.reload();
   };
 
   return (
@@ -87,7 +86,7 @@ export function Usuario() {
         <div className="flex flex-row h-screen font-poppins w-screen">
           <Menu />
           <div className="flex flex-col justify-center items-center w-full">
-            <div className="bg-[#03588C] flex flex-col items-center shadow-xl rounded-xl p-8 w-full max-w-5xl min-h-fit">
+            <div className="bg-[#03588C] flex flex-col items-center shadow-xl rounded-xl p-8 w-full max-w-5xl mt-5 space-y-5g-[#03588C] flex flex-col items-center shadow-xl rounded-xl p-8 w-full max-w-5xl min-h-22">
             <h1 className="text-4xl font-bold text-center">Lista de Usuários</h1>
               <span className="w-110 flex flex-row  justify-center rounded-2xl mt-10">
                 <input
@@ -101,10 +100,12 @@ export function Usuario() {
                   <Search className="text-black " />{" "}
                 </div>
               </span>
+              <div className="bg-[#48D1A0]/45 max-h-[350px] rounded-2xl  w-1/2 flex flex-col justify-center items-center overflow-y-auto mt-5 space-y-3">
 
-              {dados.cliente?.map((dado) => (
-                <div key={dado.ra} className="w-1/2">
-                  <div className="h-15 w-full flex justify-evenly rounded-2xl mt-5 bg-[#48D1A0]/45 items-center">
+
+              {selectBD?.map((dado) => (
+                <div key={dado.ra} className="w-96">
+                  <div className="h-15 w-full border-2 flex justify-evenly rounded-2xl mt-5 bg-[#03588C]/45 items-center">
                     {dado.nomecliente}, {dado.ra}, {dado.idprofissao}
                     <span className="flex flex-row">
                       <Trash2
@@ -120,9 +121,10 @@ export function Usuario() {
                 </div>
               ))}
             </div>
+              </div>
             <footer className="mt-[50px]">
               <button
-                className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer "
+                className="bg-[#FFA500] h-12 mb-5 rounded-3xl w-55 cursor-pointer "
                 type="submit"
                 onClick={cadastrarUsuario}
               >

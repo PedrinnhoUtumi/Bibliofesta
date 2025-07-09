@@ -14,7 +14,7 @@ export function Emprestimo2() {
 
   const livro = dados.livro?.find(l => l.isbn === isbn);
 
-  async function emprestarLivro(isbn, idautor, ra) {
+  async function emprestarLivro(isbn, idautor) {
     try {
       navigate(`/emprestimo3/${isbn}/${idautor}/`)
     } catch (error) {
