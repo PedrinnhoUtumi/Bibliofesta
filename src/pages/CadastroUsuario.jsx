@@ -87,81 +87,89 @@ export function CadastroUsuario() {
     return (
         <div>
             <Pagina>
-                <div className="flex flex-row h-screen font-poppins w-screen">
+                <div className="flex flex-row h-full font-poppins w-screen">
                     <Menu />
-                    <div className="grid place-items-center  h-full w-full ">
-                        <form action="" className="flex flex-col sm:grid sm:grid-cols-2 gap-6 p-10 h-100">
-                            <span>
-                                <label htmlFor="" className={estiloLabel}>RA:</label>
-                                <br />
-                                <input type="text" value={novoUsuario.RA} onChange={(e) => setNovoUsuario({ ...novoUsuario, RA: e.target.value })} className={estiloInput} />
-                            </span>
 
-                            <span>
-                                <label htmlFor="" className={estiloLabel}>Nome:</label>
-                                <br />
-                                <input type="text" value={novoUsuario.nomeCliente} onChange={(e) => setNovoUsuario({ ...novoUsuario, nomeCliente: e.target.value })} className={estiloInput} />
-                            </span>
+                    <div className="flex flex-col items-center justify-start w-full p-10">
+                        
+                        <h1 className="text-4xl font-bold text-center mb-8">Cadastro de Usuários</h1>
 
-                            <span>
-                                <label htmlFor="" className={estiloLabel}>Profissão:</label>
-                                <br />
-                                <input type="number" value={novoUsuario.idProfissao} onChange={(e) => setNovoUsuario({ ...novoUsuario, idProfissao: e.target.value })} className={estiloInput} />
-                            </span>
+                        
+                        <div className="bg-[#03588C] shadow-xl rounded-xl p-8 w-full max-w-5xl">
+                            <form className="grid grid-cols-3 sm:grid-cols-2 gap-6">
+                                
+                                <span>
+                                    <label className={estiloLabel}>RA:</label>
+                                    <br />
+                                    <input type="text" value={novoUsuario.RA} onChange={(e) => setNovoUsuario({ ...novoUsuario, RA: e.target.value })} className={estiloInput} />
+                                </span>
 
-                            <span>
-                                <label htmlFor="" className={estiloLabel}>Telefone:</label>
-                                <br />
-                                <input type="tel" value={novoUsuario.telefone} onChange={(e) => setNovoUsuario({ ...novoUsuario, telefone: e.target.value })} className={estiloInput} />
+                                <span>
+                                    <label className={estiloLabel}>Nome:</label>
+                                    <br />
+                                    <input type="text" value={novoUsuario.nomeCliente} onChange={(e) => setNovoUsuario({ ...novoUsuario, nomeCliente: e.target.value })} className={estiloInput} />
+                                </span>
 
-                            </span>
+                                <span>
+                                    <label className={estiloLabel}>Profissão:</label>
+                                    <br />
+                                    <input type="number" value={novoUsuario.idProfissao} onChange={(e) => setNovoUsuario({ ...novoUsuario, idProfissao: e.target.value })} className={estiloInput} />
+                                </span>
+                                <span>
+                                    <label className={estiloLabel}>Telefone:</label>
+                                    <br />
+                                    <input type="tel" value={novoUsuario.telefone} onChange={(e) => setNovoUsuario({ ...novoUsuario, telefone: e.target.value })} className={estiloInput} />
+                                </span>
 
-                            <span>
-                                <label htmlFor="" className={estiloLabel}>Curso:</label>
-                                <br />
-                                <input type="text" value={novoUsuario.codigoCurso} onChange={(e) => setNovoUsuario({ ...novoUsuario, codigoCurso: e.target.value })} className={estiloInput} />
+                                <span>
+                                    <label className={estiloLabel}>Curso (Código):</label>
+                                    <br />
+                                    <input type="text" value={novoUsuario.codigoCurso} onChange={(e) => setNovoUsuario({ ...novoUsuario, codigoCurso: e.target.value })} className={estiloInput} />
+                                </span>
 
-                                {/* <select selected id="codigoCurso" name="curso" >
-                                    <option value="informatica">TI24E</option>
-                                    <option value="matematica">MAT24E</option>
-                                </select> */}
-                                {/* <Link to='/'>Curso não cadastrado ainda? Cadastre agora</Link> */}
-                            </span>
+                                <span>
+                                    <label className={estiloLabel}>Email:</label>
+                                    <br />
+                                    <input type="email" value={novoUsuario.email} onChange={(e) => setNovoUsuario({ ...novoUsuario, email: e.target.value })} className={estiloInput} />
+                                </span>
 
-                            <span>
-                                <label htmlFor="" className={estiloLabel}>Email:</label>
-                                <br />
-                                <input type="email" value={novoUsuario.email} onChange={(e) => setNovoUsuario({ ...novoUsuario, email: e.target.value })} className={estiloInput} />
-                            </span>
+                                <span>
+                                    <label className={estiloLabel}>Data de Nascimento:</label>
+                                    <input type="date" value={novoUsuario.dataNasc} onChange={(e) => setNovoUsuario({ ...novoUsuario, dataNasc: e.target.value })} className={estiloInput} />
+                                </span>
+                            </form>
 
-                            <span>
-                                <label htmlFor="" className={estiloLabel}>Data:</label>
-                                <br />
-                                <input type="date" value={novoUsuario.dataNasc} onChange={(e) => setNovoUsuario({ ...novoUsuario, dataNasc: e.target.value })} className={estiloInput} />
-                            </span>
-                        </form>
-                        <span>
-                            <button onClick={cadastroCurso} className="ml-[350px]">
-                                {isVisivel ? 'Cancelar' : 'Cadastrar Curso'}
-                            </button>
+                            
+                            <div className="flex items-center justify-between mt-6">
+                                <button onClick={cadastroCurso} className="text-green-500 hover:underline">
+                                    {isVisivel ? 'Fechar Cadastro de Curso' : 'Cadastrar Novo Curso'}
+                                </button>
+
+                                <button className="bg-[#11a3b2] text-white font-semibold h-10 px-6 rounded-3xl" type="submit" onClick={criarUsuario}>
+                                    Cadastrar Usuário
+                                </button>
+                            </div>
+
                             {isVisivel && (
-                                <div  className="ml-[350px]">
-                                    <label htmlFor="" className={estiloLabel}>Código Curso</label>
-                                    <br />
-                                    <input type="text" className={estiloInput} value={curso.codigoCurso} onChange={(e) => setCurso({ ...curso, codigoCurso: e.target.value })} />
-                                    <br />
-                                    <label htmlFor="" className={estiloLabel}>Nome Curso</label>
-                                    <br />
-                                    <input type="text" className={estiloInput} value={curso.nomeCurso} onChange={(e) => setCurso({ ...curso, nomeCurso: e.target.value })} />
-                                    <br />
-                                    <button className="bg-[#11a3b2] h-9 mt-2 rounded-3xl w-40 cursor-pointer " onClick={criarCurso}>Cadastrar</button>
+                                <div className="mt-6 border-t pt-6">
+                                    <h2 className="text-2xl font-semibold mb-4">Cadastro de Curso</h2>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className={estiloLabel}>Código do Curso:</label>
+                                            <input type="text" className={estiloInput} value={curso.codigoCurso} onChange={(e) => setCurso({ ...curso, codigoCurso: e.target.value })} />
+                                        </div>
+
+                                        <div>
+                                            <label className={estiloLabel}>Nome do Curso:</label>
+                                            <input type="text" className={estiloInput} value={curso.nomeCurso} onChange={(e) => setCurso({ ...curso, nomeCurso: e.target.value })} />
+                                        </div>
+                                    </div>
+                                    <button className="bg-[#11a3b2] text-white font-semibold h-9 mt-4 rounded-3xl w-40" onClick={criarCurso}>
+                                        Cadastrar Curso
+                                    </button>
                                 </div>
                             )}
-                            <br />
-                        </span>
-                        <footer className="mt-[-20px]">
-                            <button className="bg-[#11a3b2] h-12  rounded-3xl w-55 cursor-pointer " type="submit" onClick={criarUsuario}><strong>Cadastrar</strong></button>
-                        </footer>
+                        </div>
                     </div>
                 </div>
             </Pagina>
