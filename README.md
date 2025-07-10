@@ -1,12 +1,88 @@
-# React + Vite
+# Bibliofesta Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Descrição do Projeto
+Frontend da nossa biblioteca **"Bibliofesta"**, com uso das ferramentas Javascript **React Vite**, **React-Router** e **PostgreSQL** como banco de dados
 
-Currently, two official plugins are available:
+## 💻 Tecnologias Utilizadas
+- ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=000000)
+- ![React](https://img.shields.io/badge/-React-03588c?style=flat&logo=react&logoColor=ffffff)
+- ![POSTGRESQL](https://img.shields.io/badge/-PostgreSQL-652C91?style=flat&logo=postgresql&logoColor=ffffff)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📊 Status do Projeto
+- [ ] 🚫 Não Feito
+- [x] 🔄 Em Andamento
+- [ ] ✅ Concluído
 
-## Expanding the ESLint configuration
+## Estrutura do Projeto
+```
+├── public/ 
+├──src/
+│
+    ├── assets/                     
+    │
+    ├── components/                
+    │   ├── Menu.jsx         
+    │   └── Pagina.jsx  
+    │
+    ├── context/                
+    │   └── DadosContext.jsx  
+    │
+    ├── pages/                      
+    │   ├── AtualizarLivro.jsx         
+    │   └── AtualizarUsuario.jsx  
+    │   └── Cadastro.jsx  
+    │   └── CadastroLivro.jsx         
+    │   └── CadastroUsuario.jsx  
+    │   └── Emprestimo.jsx                   
+    │   └── Emprestimo2.jsx         
+    │   └── Emprestimo3.jsx  
+    │   └── GerenciarDividas.jsx
+    │   └── Login.jsx              
+    │   └── Usuario.jsx             
+    │   └── VerificarEmprestimos.jsx              
+    ├── index.css                  
+    ├── main.jsx 
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package-lock.json                   
+├── package.json                   
+├── README.md                   
+└── vite.config.js      
+```
+## 🛠️ Instalação e Execução
+- Clone o repositório e abra um terminal nele
+```
+git clone https://github.com/PedrinnhoUtumi/Bibliofesta.git
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+cd Bibliofesta
+```
+- Instale suas dependências
+```
+npm i
+```
+ou
+```
+npm install
+```
+- Execute o Site (Ele se localizará em http://localhost:5173/)
+```
+npm run dev
+```
+
+## Integração com a API
+Este site foi projetado para comunicar-se com o backend TrabalhoBiblioteca, disponivel em [TrabalhoBiblioteca](https://github.com/PedrinnhoUtumi/TrabalhoBiblioteca), que utiliza principalmente:
+
+- ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=000000)
+- ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat&logo=node.js&logoColor=ffffff)
+- ![Express](https://img.shields.io/badge/-Express-000000?style=flat&logo=express&logoColor=ffffff)
+- ![CORS](https://img.shields.io/badge/-CORS-652C91?style=flat&logo=fastapi&logoColor=ffffff)
+- ![Express FileUpload](https://img.shields.io/badge/-Express--fileupload-4B8BBE?style=flat&logo=files&logoColor=ffffff)
+- ![Nodemailer](https://img.shields.io/badge/-Nodemailer-0099CC?style=flat&logo=gmail&logoColor=ffffff)
+- ![POSTGRESQL](https://img.shields.io/badge/-PostgreSQL-652C91?style=flat&logo=postgresql&logoColor=ffffff)
+
+Certifique-se de que o backend esteja rodando corretamente em http://localhost:3000 para dar inicio ao projeto.
+
+## 👥 Integrantes
+- [Sara Guaiume](https://github.com/saraqwe123) -> emprestimo, emprestimo2, emprestimo3, cadastroLivro, cadastroUsuario, Usuario, VerificarEmprestimos
+- [Pedro Utumi](https://github.com/PedrinnhoUtumi/) -> AtualizarUsuario, Cadastro, Login, DadosContext, README
