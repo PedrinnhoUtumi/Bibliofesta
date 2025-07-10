@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function CadastroUsuario() {
     const navigate = useNavigate()
 
-    const estiloInput = `bg-white rounded-3xl text-black w-72 h-7`
+    const estiloInput = `bg-white rounded-3xl text-black w-72 h-7 p-2`
     const estiloLabel = `text-2xl`
     const { dados, adicionarDados } = useContext(DadosContext);
     const [isVisivel, setIsVisivel] = useState(false)

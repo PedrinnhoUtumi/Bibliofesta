@@ -15,6 +15,7 @@ export function Emprestimo3() {
   const livro = dados.livro?.find(l => l.isbn === isbn);
   const autor = dados.autor?.find(a => String(a.idautor) === idautor);
 
+
   console.log("isb", isbn);
   console.log("idautor", idautor);
   console.log("livro", livro);
@@ -35,44 +36,44 @@ export function Emprestimo3() {
     return hoje;
   }
   const hoje = getData()
-  const [novoEmprestimo, setNovoEmprestimo] = useState({ ISBN: isbn, status: true, idCliente: "", dataEmprestimo: hoje});
+  const [novoEmprestimo, setNovoEmprestimo] = useState({ ISBN: isbn, status: true, idCliente: "", dataEmprestimo: hoje });
+  const cliente = dados.cliente?.find(c => String(c.idcliente) === novoEmprestimo.idCliente);
 
-      async function criarEmprestimo(e) {
-        e.preventDefault();
-        try {
-            if (!novoEmprestimo.idCliente) {
-                alert("Preencha todos os campos!")
-                return
-            }
-
-
-            const response = await fetch(`http://127.0.0.1:3000/api/emprestimo`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(novoEmprestimo),
-            })
-
-            if (!response.ok) {
-                throw new Error(`Erro ao emprestar: ${response.statusText}`)
-            }
+  async function criarEmprestimo(e) {
+    e.preventDefault();
+    try {
+      if (!novoEmprestimo.idCliente || cliente.qtdemprestimo > 3) {
+        alert("Preencha todos os campos!")
+        return
+      }
 
 
-            const dados = await response.json()
-            console.log(dados)
-            window.location.reload()
-            navigate("/emprestimo")
+      const response = await fetch(`http://127.0.0.1:3000/api/emprestimo`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(novoEmprestimo),
+      })
 
-            setnovoEmprestimo({ ISBN: "", status: "", idCliente: "", dataEmprestimo: "" })
-        } catch (error) {
-            console.error(error)
-        }
-    }
+      if (!response.ok) {
+        throw new Error(`Erro ao emprestar: ${response.statusText}`)
+      }
 
-    function cancela() {
+
+      const dados = await response.json()
+      console.log(dados)
+      window.location.reload()
       navigate("/emprestimo")
+
+    } catch (error) {
+      console.error(error)
     }
+  }
+
+  function cancela() {
+    navigate("/emprestimo")
+  }
 
   return (
     <div className="w-screen h-screen">
@@ -80,42 +81,45 @@ export function Emprestimo3() {
         <div className="flex h-screen font-poppins w-screen">
           <Menu />
           <div className="h-full w-full flex flex-col justify-center items-center">
-            <div className="flex flex-row items-center mb-8">
+            <div className="bg-[#03588C] flex flex-col items-center w-[70vw] h-[85vh] rounded-2xl">
+              <span className="flex flex-row">
                 <div>
-                    <img src={`http://localhost:3000/${livro?.imagemcapa}`} alt={livro?.titulo} className="w-72 m-6" />
-                    <p className="text-center">{livro?.qtdestoque}</p>
+                  <img src={`http://localhost:3000/${livro?.imagemcapa}`} alt={livro?.titulo} className="w-72 m-6" />
                 </div>
-              <div className="flex flex-col">
-                <p className="mb-5">{autor?.nomeautor}</p>
-                <p className="w-72 h-auto">
-                  {livro?.resumo}
-                </p>
-              </div>
-              <select name="cliente" id="cliente" value={novoEmprestimo.idCliente} onChange={(e) => setNovoEmprestimo({...novoEmprestimo, idCliente: e.target.value})}>
-                  {dados.cliente?.map((u) => (
-                    <option key={u?.idcliente} value={u?.idcliente}>
-                      {u?.nomecliente}
+                <span className="flex flex-col justify-center">
+                  <select name="cliente" id="cliente" value={novoEmprestimo.idCliente} onChange={(e) => setNovoEmprestimo({ ...novoEmprestimo, idCliente: e.target.value })}>
+                    <option className="bg-white" value="" disabled hidden>
+                      Selecione um cliente...
                     </option>
-                  ))
-                  }
+                    {dados.cliente?.map((u) => (
 
-              </select>
-            </div>
-            <div className="flex flex-row gap-20">
-              <button
+                      <option className="text-black" key={u?.idcliente} value={u?.idcliente}>
+                        {u?.nomecliente}
+                      </option>
+                    ))
+                    }
+                  </select>
+                  <p className="mb-5 border-2">{autor?.nomeautor}</p>
+                  <div className="w-96 h-50 bg-gray-200 text-black rounded-2xl ">{livro?.resumo}</div>
+
+                </span>
+              </span>
+            <div className="flex flex-row justify-evenly w-full">
+            <button
               onClick={cancela}
-                className="bg-[#6b0808] h-12 rounded-3xl w-44 text-white font-semibold"
+                className="bg-red-600 h-12 rounded-3xl w-44 text-white font-semibold"
                 type="submit"
               >
                 Cancelar
               </button>
               <button
               onClick={criarEmprestimo}
-                className="bg-[#11a3b2] h-12 rounded-3xl w-44 text-white font-semibold"
+                className="bg-[#48D1A0] h-12 rounded-3xl w-44 text-white font-semibold"
                 type="submit"
               >
                 Emprestar
               </button>
+            </div>
             </div>
           </div>
         </div>

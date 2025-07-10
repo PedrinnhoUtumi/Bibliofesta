@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function CadastroLivro() {
     const navigate = useNavigate()
     const { dados, adicionarDados } = useContext(DadosContext);
-    const estiloInput = `bg-white rounded-3xl text-black w-72 h-7`
+    const estiloInput = `bg-white rounded-3xl text-black w-72 h-7 p-2`
     const estiloLabel = `text-2xl`
     const [novoLivro, setNovoLivro] = useState({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: ""});
     async function criarLivro(e) {

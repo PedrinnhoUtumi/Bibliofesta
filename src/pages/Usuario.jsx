@@ -93,7 +93,7 @@ export function Usuario() {
               <span className="w-110 flex flex-row  justify-center rounded-2xl mt-5">
                 <input
                   type="text"
-                  className="w-[25vw] h-5 p-4 bg-white focus:outline-none rounded-l-2xl text-black"
+                  className="w-[25vw] p-2 h-5 p-4 bg-white focus:outline-none rounded-l-2xl text-black"
                   onChange={(e) => setProcura(e.target.value)}
                   placeholder="Buscar usuário..."
                 />
