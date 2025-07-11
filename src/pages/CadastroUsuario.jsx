@@ -19,7 +19,6 @@ export function CadastroUsuario() {
     function cadastroCurso(e) {
         (e).preventDefault()
         setIsVisivel(!isVisivel);
-        console.log(dados)
     }
 
     async function criarUsuario(e) {
@@ -45,7 +44,6 @@ export function CadastroUsuario() {
 
 
             const dados = await response.json()
-            console.log(dados)
             navigate("/Usuario")
             window.location.reload()
 

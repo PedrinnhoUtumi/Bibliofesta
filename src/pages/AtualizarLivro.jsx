@@ -18,7 +18,6 @@ export function AtualizarLivro() {
     useEffect(() => {
         try {
           const obj = JSON.parse(dado);
-          console.log("dados recebidos", obj);
           setNovoLivro(obj);
           setNovoLivro({...obj, isbnAntigo: isbn});
         } catch (error) {
@@ -26,7 +25,6 @@ export function AtualizarLivro() {
         }
       }, []);
 
-    console.log("novo livro após dados recebidos", novoLivro.isbnAntigo);
     
 
 
@@ -47,13 +45,12 @@ export function AtualizarLivro() {
 
             })
             const dados = await response.json()
-            console.log(dados)
             navigate("/emprestimo")
         
             setNovoLivro({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", imagemcapa: "", qtdEstoque: ""})
 
             if (!response.ok) {
-                console.log(response)
+                console.error(response)
             }
 
         } catch (error) {

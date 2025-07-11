@@ -15,11 +15,6 @@ export function Emprestimo3() {
   const livro = dados.livro?.find(l => l.isbn === isbn);
   const autor = dados.autor?.find(a => String(a.idautor) === idautor);
 
-
-  console.log("isb", isbn);
-  console.log("idautor", idautor);
-  console.log("livro", livro);
-  console.log("autor", autor);
   function getData() {
     const agora = new Date();
 
@@ -36,23 +31,31 @@ export function Emprestimo3() {
     return hoje;
   }
   const hoje = getData()
-  const [novoEmprestimo, setNovoEmprestimo] = useState({ ISBN: isbn, status: true, idCliente: "", dataEmprestimo: hoje, email: "" });
+  const [novoEmprestimo, setNovoEmprestimo] = useState({ ISBN: isbn, status: true, idCliente: "", dataEmprestimo: hoje, email: "", qtdemprestimo: "" });
   
   useEffect(() => {
     const cliente = dados.cliente?.find(c => String(c.idcliente) === String(novoEmprestimo.idCliente));
     if (cliente) {
-      setNovoEmprestimo(prev => ({ ...prev, email: cliente.email }));
+      setNovoEmprestimo(prev => ({ ...prev, email: cliente.email, qtdemprestimo: cliente.qtdemprestimo }));
     }
   }, [novoEmprestimo.idCliente, dados.cliente]);
   
   async function criarEmprestimo(e) {
     e.preventDefault();
+    
     try {
-      if (!novoEmprestimo.idCliente || cliente.qtdemprestimo > 3) {
+      if (!novoEmprestimo.idCliente) {
         alert("Preencha todos os campos!")
         return
       }
-
+      if (novoEmprestimo.qtdemprestimo > 3) {
+        alert("Usuario nao pode mais emprestar")
+        return
+      }
+      if (livro?.qtdestoque < 1) {
+        alert("Livro indisponível para empréstimo!")
+        return
+      }
 
       const response = await fetch(`http://127.0.0.1:3000/api/emprestimo`, {
         method: "POST",
@@ -68,7 +71,6 @@ export function Emprestimo3() {
 
 
       const dados = await response.json()
-      console.log(dados)
       window.location.reload()
       navigate("/emprestimo")
 
@@ -90,27 +92,25 @@ export function Emprestimo3() {
             <div className="bg-[#03588C] flex flex-col items-center w-[70vw] h-[85vh] rounded-2xl">
               <span className="flex flex-row">
                 <div>
-                  <img src={`http://localhost:3000/${livro?.imagemcapa}`} alt={livro?.titulo} className="w-72 m-6" />
+                  <img src={`http://localhost:3000/${livro?.imagemcapa}`} alt={livro?.titulo} className="w-[25vw] h-[75vh] m-6" />
                 </div>
-                <span className="flex flex-col justify-center">
-                  <select name="cliente" id="cliente" value={novoEmprestimo.idCliente} onChange={(e) => setNovoEmprestimo({ ...novoEmprestimo, idCliente: e.target.value})}>
+                <span className="bg-[#48D1A0]/45 w-[35vw] h-[75vh] mt-5 rounded-2xl flex flex-col justify-center items-center">
+                  <select className="border-1 w-[30vw]" name="cliente" id="cliente" value={novoEmprestimo.idCliente} onChange={(e) => setNovoEmprestimo({ ...novoEmprestimo, idCliente: e.target.value})}>
                     <option className="bg-white" value="" disabled hidden>
                       Selecione um cliente...
                     </option>
                     {dados.cliente?.map((u) => (
 
-                      <option className="text-black" key={u?.idcliente} value={u?.idcliente}>
+                      <option className="text-black border-1" key={u?.idcliente} value={u?.idcliente}>
                         {u?.nomecliente}
                       </option>
                     ))
                     }
                   </select>
-                  <p className="mb-5 border-2">{autor?.nomeautor}</p>
-                  <div className="w-96 h-50 bg-gray-200 text-black rounded-2xl ">{livro?.resumo}</div>
-
-                </span>
-              </span>
-            <div className="flex flex-row justify-evenly w-full">
+                  <p className="mt-5 w-[30vw] border-1">Autor: {autor?.nomeautor}</p>
+                  <p className="mt-5 w-[30vw] border-1">Quantidade disponível: {livro?.qtdestoque}</p>
+                  <div className="mt-5 w-96 h-50 bg-gray-200 text-black rounded-2xl p-2">{livro?.resumo}</div>
+            <div className="mt-5 flex flex-row justify-evenly w-full">
             <button
               onClick={cancela}
                 className="bg-red-600 h-12 rounded-3xl w-44 text-white font-semibold"
@@ -120,12 +120,14 @@ export function Emprestimo3() {
               </button>
               <button
               onClick={criarEmprestimo}
-                className="bg-[#48D1A0] h-12 rounded-3xl w-44 text-white font-semibold"
+                className="bg-[#FFA500] h-12 rounded-3xl w-44 text-white font-semibold"
                 type="submit"
               >
                 Emprestar
               </button>
             </div>
+                </span>
+              </span>
             </div>
           </div>
         </div>

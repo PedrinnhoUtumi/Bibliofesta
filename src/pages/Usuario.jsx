@@ -62,7 +62,6 @@ export function Usuario() {
       if (!resposta.ok) {
         console.error(resposta);
         const texto = await resposta.text();
-        console.log(texto);
       } else {
         setDeletados((prevDeletados) => [...prevDeletados, idcliente]);
         const novosDados = {

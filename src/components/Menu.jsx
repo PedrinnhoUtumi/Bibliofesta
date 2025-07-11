@@ -31,7 +31,6 @@ export function Menu() {
 
   function verificaMenu() {
     setMenu(!menu);
-    console.log(menu)
   }
 
   const getEstilo = (props) => {
@@ -51,7 +50,7 @@ export function Menu() {
   return (
     <div>
       {!menu &&(
-      <button className="flex text-3xl sm:hidden" onClick={verificaMenu}>
+      <button className="flex text-3xl sm:hidden p-4 fixed top-0 left-0 z-50 bg-[#FFAA00]" onClick={verificaMenu}>
         &equiv;
       </button>)}
 
@@ -100,7 +99,7 @@ export function Menu() {
               Gerenciar Dívidas
             </NavLink>
           </nav>
-          <button className={`flex ml-5 sm:hidden ${getEstilo}`} onClick={verificaMenu}>Fechar Menu</button>
+          <button className={`flex ml-5 v-[5vw] h-[5vh] sm:hidden ${getEstilo}`} onClick={verificaMenu}>Fechar Menu</button>
           <NavLink to="/" >
           <footer className="absolute bottom-0 p-2 w-72 flex justify-center cursor-pointer text-black border-1">
             <LogOutIcon />

@@ -15,19 +15,14 @@ export function Login() {
         
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(senha, salt);
-        console.log(hash)
-        console.log("Dados:", dados.bibliotecario);
+
         
         for (let i = 0; i < dados.bibliotecario.length; i++){
             const senhaCorreta = bcrypt.compare(hash, dados.bibliotecario[i].senha)
-            console.log("Dados:", dados);
             
             if (login === dados.bibliotecario[i].nomebibliotecario && senhaCorreta){
-                console.log("arrasou");
                 navigate("/emprestimo")
                 
-            } else {
-                console.log("Tentaiva", i)          
             }
         }
         

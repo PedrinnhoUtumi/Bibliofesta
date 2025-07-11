@@ -3,7 +3,7 @@ import { Pagina } from "../components/Pagina";
 import imagemLogin from '../assets/imagemLogin.png'
 import { Search, StepBack, StepForward } from "lucide-react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { DadosContext } from "../context/DadosContext";
 export function Emprestimo2() {
   const { isbn } = useParams()
@@ -11,14 +11,18 @@ export function Emprestimo2() {
   const navigate = useNavigate()
   const [procura, setProcura] = useState("")
   const [deletados, setDeletados] = useState([])
+  const [livro, setLivro] = useState({});
 
-  const livro = dados.livro?.find(l => l.isbn === isbn);
+  useEffect(() => {
+    const l = dados.livro?.find(l => l.isbn === isbn);
+    setLivro(l);
+  }, [dados.livro, isbn]);
 
   async function emprestarLivro(isbn, idautor) {
     try {
       navigate(`/emprestimo3/${isbn}/${idautor}/`)
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -42,7 +46,6 @@ export function Emprestimo2() {
       if (!resposta.ok) {
         console.error(resposta);
         const texto = await resposta.text()
-        console.log(texto);
       } else {
         setDeletados((prevDeletados) => [...prevDeletados, isbn])
         const novosDados = {

@@ -32,9 +32,7 @@ export function DadosProvider({ children }) {
 
 
         const json = await response.json();
-        console.log(json);
         adicionarDados(json.message);
-        console.log("Resposta recebida da API:", JSON.stringify(json, null, 2));
 
 
         // Object.entries(tabelas).forEach(([nomeTabela, conteudo]) => {

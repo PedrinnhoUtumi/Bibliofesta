@@ -22,28 +22,17 @@ export function AtualizarUsuario() {
     function cadastroCurso(e) {
         (e).preventDefault()
         setIsVisivel(!isVisivel);
-        console.log(dados)
     }
-
-    // async function criarUsuario(e) {
-    //     e.preventDefault();
-    //     console.log("dado", dado);
-    //     console.log("idCliente", idCliente);
-
-
-    // }
 
     useEffect(() => {
         try {
             const obj = JSON.parse(dado);
-            console.log("dados recebidos", obj);
             setNovoUsuario(obj);
         } catch (error) {
             console.error("Erro ao fazer parse do dado da URL:", error);
         }
     }, []);
 
-    console.log("novo usuario após dados recebidos", novoUsuario);
 
 
 
@@ -58,7 +47,7 @@ export function AtualizarUsuario() {
             })
 
             if (!response.ok) {
-                console.log(response)
+                console.error(response)
             }
 
         } catch (error) {

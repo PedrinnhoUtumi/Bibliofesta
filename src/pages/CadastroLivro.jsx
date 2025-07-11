@@ -10,43 +10,41 @@ export function CadastroLivro() {
     const { dados, adicionarDados } = useContext(DadosContext);
     const estiloInput = `bg-white rounded-3xl text-black w-72 h-7 p-2`
     const estiloLabel = `text-2xl`
-    const [novoLivro, setNovoLivro] = useState({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: ""});
+    const [novoLivro, setNovoLivro] = useState({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: "" });
     async function criarLivro(e) {
         e.preventDefault();
         try {
-          if (!novoLivro.ISBN || !novoLivro.idCategoria || !novoLivro.editora || !novoLivro.titulo || !novoLivro.idAutor || !novoLivro.edicao || !novoLivro.resumo) {
-            alert("Preencha todos os campos!")
-            return  
-          }
-          console.log(novoLivro.qtdEstoque);
-          const formData = new FormData();
-          Object.entries(novoLivro).forEach(([key, value]) => {
-              formData.append(key, value);
-          });
-    
-          const response = await fetch(`http://127.0.0.1:3000/cadastroLivro`, {
-              method: "POST",
-            //   headers: {
-            //       "Content-Type": "application/json",
-            //   },
-            //   body: JSON.stringify(novoLivro),
-              body: formData,
-          })
-    
-          if (!response.ok) {
-              throw new Error(`Erro ao criar usuário: ${response.statusText}`)
-          }
-    
-    
-          const dados = await response.json()
-          console.log(dados)
-          navigate("/emprestimo")
-    
-          setNovoLivro({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: ""})
-          } catch (error) {
-          console.error(error)
+            if (!novoLivro.ISBN || !novoLivro.idCategoria || !novoLivro.editora || !novoLivro.titulo || !novoLivro.idAutor || !novoLivro.edicao || !novoLivro.resumo) {
+                alert("Preencha todos os campos!")
+                return
+            }
+            const formData = new FormData();
+            Object.entries(novoLivro).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+
+            const response = await fetch(`http://127.0.0.1:3000/cadastroLivro`, {
+                method: "POST",
+                //   headers: {
+                //       "Content-Type": "application/json",
+                //   },
+                //   body: JSON.stringify(novoLivro),
+                body: formData,
+            })
+
+            if (!response.ok) {
+                throw new Error(`Erro ao criar usuário: ${response.statusText}`)
+            }
+
+
+            const dados = await response.json()
+            navigate("/emprestimo")
+
+            setNovoLivro({ ISBN: "", idCategoria: "", editora: "", titulo: "", idAutor: "", edicao: "", resumo: "", foto: "", qtdEstoque: "" })
+        } catch (error) {
+            console.error(error)
         }
-      }
+    }
 
 
     return (
@@ -56,18 +54,23 @@ export function CadastroLivro() {
                     <Menu />
 
                     <div className="flex flex-col items-center justify-center w-full p-10">
-                        
 
-                        
+
+
                         <div className="bg-[#03588C] shadow-xl rounded-xl p-8 w-full max-w-5xl">
-                        <h1 className="text-4xl font-bold text-center mb-8">Cadastro de Livros</h1>
+                            <h1 className="text-4xl font-bold text-center mb-8">Cadastro de Livros</h1>
                             <form className="grid grid-cols-3 sm:grid-cols-2 gap-6" action="POST" onSubmit={criarLivro}>
-                                
-                                <span>
-                                    <label className={estiloLabel}>Categoria:</label>
-                                    <br />
-                                    <input type="text" value={novoLivro.idCategoria} onChange={(e) => setNovoLivro({ ...novoLivro, idCategoria: e.target.value })} className={estiloInput} />
-                                </span>
+        
+                                <select
+                                    value={novoLivro.idCategoria}
+                                    onChange={(e) => setNovoLivro({ ...novoLivro, idCategoria: e.target.value })}
+                                    className="w-72 border-1 h-14"
+                                >
+                                    <option value="" className="text-black">Selecione uma categoria</option>
+                                    {dados.categoria?.map((cat) => (
+                                        <option key={cat.idcategoria} value={cat.idcategoria} className="text-black">{cat.nomecategoria}</option>
+                                    ))}
+                                </select>
 
                                 <span>
                                     <label className={estiloLabel}>ISBN:</label>
@@ -107,14 +110,20 @@ export function CadastroLivro() {
                                 <span>
                                     <label className={estiloLabel}>Foto:</label>
                                     <br />
-                                    <input type="file" name="foto" onChange={(e) => setNovoLivro({...novoLivro, foto: e.target.files[0]})} className="inline-block bg-white w-72 text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300"/>
+                                    <input type="file" name="foto" onChange={(e) => setNovoLivro({ ...novoLivro, foto: e.target.files[0] })} className="inline-block bg-white w-72 text-black rounded-lg cursor-pointer hover:bg-indigo-700 transition duration-300" />
                                 </span>
 
-                                <span>
-                                    <label className={estiloLabel}>Autor (ID):</label>
-                                    <br />
-                                    <input type="text" value={novoLivro.idAutor} onChange={(e) => setNovoLivro({ ...novoLivro, idAutor: e.target.value })} className={estiloInput} />
-                                </span>
+                                <select
+                                    value={novoLivro.idAutor}
+                                    onChange={(e) => setNovoLivro({ ...novoLivro, idAutor: e.target.value })}
+                                    className="w-72 border-1 h-14"
+                                >
+                                    <option value="" className="text-black">Selecione uma categoria</option>
+                                    {dados.autor?.map((cat) => (
+                                        <option key={cat.idautor} value={cat.idautor} className="text-black">{cat.nomeautor}</option>
+                                    ))}
+                                </select>
+
                                 <button className="bg-[#11a3b2] w-72 text-white font-semibold h-10 rounded-3xl" type="submit" >
                                     Cadastrar Usuário
                                 </button>

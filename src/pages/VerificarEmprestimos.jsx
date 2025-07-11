@@ -16,7 +16,6 @@ export function VerificarEmprestimos() {
 
     const emprestimo3 = (e) => {
         e.preventDefault();
-        console.log(dados.cliente)
         navigate("/Emprestimo");
 
     };
@@ -52,7 +51,6 @@ export function VerificarEmprestimos() {
             if (!resposta.ok) {
                 console.error(resposta);
                 const texto = await resposta.text();
-                console.log(texto);
             } else {
 
                 setDeletados((prevDeletados) => [...prevDeletados, idemprestimo]);
@@ -72,7 +70,6 @@ export function VerificarEmprestimos() {
 
         window.location.reload();
     };
-    console.log(deletados);
     
 
     return (
@@ -101,7 +98,7 @@ export function VerificarEmprestimos() {
                             }} className="bg-[#48D1A0]/45 border-5  max-h-1/2 rounded-2xl  w-[60vw] flex flex-col justify-center items-center overflow-y-auto mt-5 space-y-3 ">
                                
 
-                                {selectBD?.filter((dado) => dado.status != "false").map((dado) => {
+                                {selectBD?.filter((dado) => dado.status != false).map((dado) => {
                                     return(
                                         <div key={dado.idemprestimo} className="w-full flex flex-col justify-center items-center">
                                             <div className="h-10 w-[55vw] flex justify-evenly rounded-2xl mt-5 bg-[#03588C]/45 items-center">
