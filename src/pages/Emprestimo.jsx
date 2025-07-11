@@ -74,7 +74,7 @@ export function Emprestimo() {
                    <div className="flex flex-col justify-between items-center w-full">
                     
                     <span className="w-full flex flex-row items-center justify-center rounded-2xl mt-36">
-                        <input type="text" className="p-2 w-42 sm:w-96 h-5 p-4 bg-white focus:outline-none mb-10 rounded-l-2xl text-black" onChange={(e) => setProcura(e.target.value)}/> 
+                        <input type="text" className="p-2 w-42 sm:w-96 h-5 bg-white focus:outline-none mb-10 rounded-l-2xl text-black" onChange={(e) => setProcura(e.target.value)}/> 
                         <div className="border-4 bg-white rounded-r-2xl mb-10"> <Search className="text-black "/> </div>
                     </span>
                     <div className="h-full w-full  flex mb-50 rounded-2xl bg-[#11a3b2]/45 items-center justify-around">

@@ -13,26 +13,27 @@ export function AtualizarLivro() {
     const estiloLabel = `text-2xl`
     const { isbn } = useParams()
 
-    const [novoLivro, setNovoLivro] = useState({ isbn: "", titulo: "", idcategoria: "", idautor: "", editora: "", edicao: "", qtdestoque: "", imagemcapa: "", resumo: "" });
+    const [novoLivro, setNovoLivro] = useState({ isbn: "", titulo: "", idcategoria: "", idautor: "", editora: "", edicao: "", qtdestoque: "", imagemcapa: "", resumo: "", isbnAntigo: "" });
 
     useEffect(() => {
         try {
           const obj = JSON.parse(dado);
           console.log("dados recebidos", obj);
           setNovoLivro(obj);
+          setNovoLivro({...obj, isbnAntigo: isbn});
         } catch (error) {
           console.error("Erro ao fazer parse do dado da URL:", error);
         }
       }, []);
 
-    console.log("novo livro após dados recebidos", novoLivro);
+    console.log("novo livro após dados recebidos", novoLivro.isbnAntigo);
     
 
 
     async function atualizaLivro(isbn, dado) {
         try {
             const formData = new FormData();
-            Object.entries(novoLivro).forEach(([key, value]) => {
+            Object.entries(dado).forEach(([key, value]) => {
                 formData.append(key, value);
             });
     
@@ -77,7 +78,7 @@ export function AtualizarLivro() {
                         
                         <div className="bg-[#03588C] shadow-xl rounded-xl p-8 w-full max-w-5xl">
                         <h1 className="text-4xl font-bold text-center mb-8">Cadastro de Livros</h1>
-                            <form className="grid grid-cols-3 sm:grid-cols-2 gap-6" action="POST" onSubmit={atualizaLivro}>
+                            <form className="grid grid-cols-3 sm:grid-cols-2 gap-6" action="POST" onSubmit={handleSubmit}>
                                 
                                 <span>
                                     <label className={estiloLabel}>Categoria:</label>

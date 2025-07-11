@@ -3,7 +3,7 @@ import { Pagina } from "../components/Pagina";
 import imagemLogin from "../assets/imagemLogin.png";
 import { Search, StepBack, StepForward } from "lucide-react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DadosContext } from "../context/DadosContext";
 export function Emprestimo3() {
   const { isbn, idautor } = useParams()
@@ -36,9 +36,15 @@ export function Emprestimo3() {
     return hoje;
   }
   const hoje = getData()
-  const [novoEmprestimo, setNovoEmprestimo] = useState({ ISBN: isbn, status: true, idCliente: "", dataEmprestimo: hoje });
-  const cliente = dados.cliente?.find(c => String(c.idcliente) === novoEmprestimo.idCliente);
-
+  const [novoEmprestimo, setNovoEmprestimo] = useState({ ISBN: isbn, status: true, idCliente: "", dataEmprestimo: hoje, email: "" });
+  
+  useEffect(() => {
+    const cliente = dados.cliente?.find(c => String(c.idcliente) === String(novoEmprestimo.idCliente));
+    if (cliente) {
+      setNovoEmprestimo(prev => ({ ...prev, email: cliente.email }));
+    }
+  }, [novoEmprestimo.idCliente, dados.cliente]);
+  
   async function criarEmprestimo(e) {
     e.preventDefault();
     try {
@@ -87,7 +93,7 @@ export function Emprestimo3() {
                   <img src={`http://localhost:3000/${livro?.imagemcapa}`} alt={livro?.titulo} className="w-72 m-6" />
                 </div>
                 <span className="flex flex-col justify-center">
-                  <select name="cliente" id="cliente" value={novoEmprestimo.idCliente} onChange={(e) => setNovoEmprestimo({ ...novoEmprestimo, idCliente: e.target.value })}>
+                  <select name="cliente" id="cliente" value={novoEmprestimo.idCliente} onChange={(e) => setNovoEmprestimo({ ...novoEmprestimo, idCliente: e.target.value})}>
                     <option className="bg-white" value="" disabled hidden>
                       Selecione um cliente...
                     </option>

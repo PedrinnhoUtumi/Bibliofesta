@@ -41,9 +41,9 @@ export function VerificarEmprestimos() {
     const deleteBD = async (idemprestimo) => {
         try {
             const resposta = await fetch(
-                `http://127.0.0.1:3000/api/usuario/${idemprestimo}`,
+                `http://127.0.0.1:3000/api/emprestimo/${idemprestimo}`,
                 {
-                    method: "DELETE",
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -54,6 +54,7 @@ export function VerificarEmprestimos() {
                 const texto = await resposta.text();
                 console.log(texto);
             } else {
+
                 setDeletados((prevDeletados) => [...prevDeletados, idemprestimo]);
                 const novosDados = {
                     ...dados,
@@ -71,6 +72,8 @@ export function VerificarEmprestimos() {
 
         window.location.reload();
     };
+    console.log(deletados);
+    
 
     return (
         <div className="w-screen h-screen">
@@ -83,7 +86,7 @@ export function VerificarEmprestimos() {
                             <span className="w-110 flex flex-row  justify-center rounded-2xl mt-5">
                                 <input
                                     type="text"
-                                    className="w-[25vw] p-2 h-5 p-4 bg-white focus:outline-none rounded-l-2xl text-black"
+                                    className="w-[25vw] p-4 h-5  bg-white focus:outline-none rounded-l-2xl text-black"
                                     onChange={(e) => setProcura(e.target.value)}
                                     placeholder="Buscar emprestimo..."
                                 />
@@ -98,8 +101,7 @@ export function VerificarEmprestimos() {
                             }} className="bg-[#48D1A0]/45 border-5  max-h-1/2 rounded-2xl  w-[60vw] flex flex-col justify-center items-center overflow-y-auto mt-5 space-y-3 ">
                                
 
-                                {selectBD?.map((dado) => {
-                                // const cliente = dados.cliente?.find(a => a.idcliente === dado.idcliente);
+                                {selectBD?.filter((dado) => dado.status != "false").map((dado) => {
                                     return(
                                         <div key={dado.idemprestimo} className="w-full flex flex-col justify-center items-center">
                                             <div className="h-10 w-[55vw] flex justify-evenly rounded-2xl mt-5 bg-[#03588C]/45 items-center">
@@ -116,7 +118,7 @@ export function VerificarEmprestimos() {
                                                 <span className="flex flex-row">
                                                     <Trash2
                                                         className="cursor-pointer"
-                                                        onClick={() => deleteBD(dado.idcliente)
+                                                        onClick={(e) => deleteBD(dado.idemprestimo)
                                                         }
                                                     />
                                                     <NotebookPen
