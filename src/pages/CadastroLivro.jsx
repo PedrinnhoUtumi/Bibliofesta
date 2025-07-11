@@ -118,7 +118,7 @@ export function CadastroLivro() {
                                     onChange={(e) => setNovoLivro({ ...novoLivro, idAutor: e.target.value })}
                                     className="w-72 border-1 h-14"
                                 >
-                                    <option value="" className="text-black">Selecione uma categoria</option>
+                                    <option value="" className="text-black">Selecione um autor</option>
                                     {dados.autor?.map((cat) => (
                                         <option key={cat.idautor} value={cat.idautor} className="text-black">{cat.nomeautor}</option>
                                     ))}
